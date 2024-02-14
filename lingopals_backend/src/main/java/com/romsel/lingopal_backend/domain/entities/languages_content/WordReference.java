@@ -33,7 +33,7 @@ public class WordReference {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "listWordsReferences")
     private List<Lesson> lessons;
 
 }

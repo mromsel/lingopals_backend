@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 14-02-2024 a las 21:19:23
+-- Tiempo de generación: 14-02-2024 a las 22:33:37
 -- Versión del servidor: 5.7.35-0ubuntu0.18.04.2
 -- Versión de PHP: 8.0.10
 
@@ -40,10 +40,10 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `languages` (
   `id_language` int(11) NOT NULL,
+  `id_writing_system` int(11) NOT NULL,
   `flag` varchar(255) DEFAULT NULL,
   `iso_code` varchar(255) DEFAULT NULL,
-  `language_name` varchar(255) DEFAULT NULL,
-  `id_writing_system` int(11) NOT NULL
+  `language_name` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -71,10 +71,10 @@ CREATE TABLE `lessons` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `lesson_words`
+-- Estructura de tabla para la tabla `lessons_words`
 --
 
-CREATE TABLE `lesson_words` (
+CREATE TABLE `lessons_words` (
   `id_lesson` int(11) NOT NULL,
   `id_ref` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,16 +86,16 @@ CREATE TABLE `lesson_words` (
 --
 
 CREATE TABLE `words_aditional_info_ar` (
-  `id_word_aditional_info` bigint(20) NOT NULL,
   `changes_on_gender` bit(1) NOT NULL,
   `changes_on_plural` bit(1) NOT NULL,
-  `gender_variations` varbinary(255) DEFAULT NULL,
+  `id_word` bigint(20) NOT NULL,
+  `id_word_aditional_info` bigint(20) NOT NULL,
   `gramatical_category` varchar(255) NOT NULL,
   `gramatical_gender` varchar(255) NOT NULL,
-  `number_variations` varbinary(255) DEFAULT NULL,
   `pronunciation` varchar(255) NOT NULL,
   `romanization` varchar(255) DEFAULT NULL,
-  `id_word` bigint(20) NOT NULL
+  `gender_variations` varbinary(255) DEFAULT NULL,
+  `number_variations` varbinary(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,16 +105,16 @@ CREATE TABLE `words_aditional_info_ar` (
 --
 
 CREATE TABLE `words_aditional_info_en` (
-  `id_word_aditional_info` bigint(20) NOT NULL,
   `changes_on_gender` bit(1) NOT NULL,
   `changes_on_plural` bit(1) NOT NULL,
-  `gender_variations` varbinary(255) DEFAULT NULL,
+  `id_word` bigint(20) NOT NULL,
+  `id_word_aditional_info` bigint(20) NOT NULL,
   `gramatical_category` varchar(255) NOT NULL,
   `gramatical_gender` varchar(255) NOT NULL,
-  `number_variations` varbinary(255) DEFAULT NULL,
   `pronunciation` varchar(255) NOT NULL,
   `romanization` varchar(255) DEFAULT NULL,
-  `id_word` bigint(20) NOT NULL
+  `gender_variations` varbinary(255) DEFAULT NULL,
+  `number_variations` varbinary(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -124,16 +124,16 @@ CREATE TABLE `words_aditional_info_en` (
 --
 
 CREATE TABLE `words_aditional_info_es` (
-  `id_word_aditional_info` bigint(20) NOT NULL,
   `changes_on_gender` bit(1) NOT NULL,
   `changes_on_plural` bit(1) NOT NULL,
-  `gender_variations` varbinary(255) DEFAULT NULL,
+  `id_word` bigint(20) NOT NULL,
+  `id_word_aditional_info` bigint(20) NOT NULL,
   `gramatical_category` varchar(255) NOT NULL,
   `gramatical_gender` varchar(255) NOT NULL,
-  `number_variations` varbinary(255) DEFAULT NULL,
   `pronunciation` varchar(255) NOT NULL,
   `romanization` varchar(255) DEFAULT NULL,
-  `id_word` bigint(20) NOT NULL
+  `gender_variations` varbinary(255) DEFAULT NULL,
+  `number_variations` varbinary(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -143,16 +143,16 @@ CREATE TABLE `words_aditional_info_es` (
 --
 
 CREATE TABLE `words_aditional_info_fr` (
-  `id_word_aditional_info` bigint(20) NOT NULL,
   `changes_on_gender` bit(1) NOT NULL,
   `changes_on_plural` bit(1) NOT NULL,
-  `gender_variations` varbinary(255) DEFAULT NULL,
+  `id_word` bigint(20) NOT NULL,
+  `id_word_aditional_info` bigint(20) NOT NULL,
   `gramatical_category` varchar(255) NOT NULL,
   `gramatical_gender` varchar(255) NOT NULL,
-  `number_variations` varbinary(255) DEFAULT NULL,
   `pronunciation` varchar(255) NOT NULL,
   `romanization` varchar(255) DEFAULT NULL,
-  `id_word` bigint(20) NOT NULL
+  `gender_variations` varbinary(255) DEFAULT NULL,
+  `number_variations` varbinary(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -162,16 +162,16 @@ CREATE TABLE `words_aditional_info_fr` (
 --
 
 CREATE TABLE `words_aditional_info_ko` (
-  `id_word_aditional_info` bigint(20) NOT NULL,
   `changes_on_gender` bit(1) NOT NULL,
   `changes_on_plural` bit(1) NOT NULL,
-  `gender_variations` varbinary(255) DEFAULT NULL,
+  `id_word` bigint(20) NOT NULL,
+  `id_word_aditional_info` bigint(20) NOT NULL,
   `gramatical_category` varchar(255) NOT NULL,
   `gramatical_gender` varchar(255) NOT NULL,
-  `number_variations` varbinary(255) DEFAULT NULL,
   `pronunciation` varchar(255) NOT NULL,
   `romanization` varchar(255) DEFAULT NULL,
-  `id_word` bigint(20) NOT NULL
+  `gender_variations` varbinary(255) DEFAULT NULL,
+  `number_variations` varbinary(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -181,11 +181,11 @@ CREATE TABLE `words_aditional_info_ko` (
 --
 
 CREATE TABLE `words_ar` (
-  `id_word` bigint(20) NOT NULL,
-  `definition` varchar(255) DEFAULT NULL,
-  `word` varchar(255) DEFAULT NULL,
   `id_language` int(11) NOT NULL,
-  `word_reference` bigint(20) NOT NULL
+  `id_word` bigint(20) NOT NULL,
+  `word_reference` bigint(20) NOT NULL,
+  `definition` varchar(255) DEFAULT NULL,
+  `word` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -195,11 +195,11 @@ CREATE TABLE `words_ar` (
 --
 
 CREATE TABLE `words_en` (
-  `id_word` bigint(20) NOT NULL,
-  `definition` varchar(255) DEFAULT NULL,
-  `word` varchar(255) DEFAULT NULL,
   `id_language` int(11) NOT NULL,
-  `word_reference` bigint(20) NOT NULL
+  `id_word` bigint(20) NOT NULL,
+  `word_reference` bigint(20) NOT NULL,
+  `definition` varchar(255) DEFAULT NULL,
+  `word` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -209,11 +209,11 @@ CREATE TABLE `words_en` (
 --
 
 CREATE TABLE `words_es` (
-  `id_word` bigint(20) NOT NULL,
-  `definition` varchar(255) DEFAULT NULL,
-  `word` varchar(255) DEFAULT NULL,
   `id_language` int(11) NOT NULL,
-  `word_reference` bigint(20) NOT NULL
+  `id_word` bigint(20) NOT NULL,
+  `word_reference` bigint(20) NOT NULL,
+  `definition` varchar(255) DEFAULT NULL,
+  `word` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -223,11 +223,11 @@ CREATE TABLE `words_es` (
 --
 
 CREATE TABLE `words_fr` (
-  `id_word` bigint(20) NOT NULL,
-  `definition` varchar(255) DEFAULT NULL,
-  `word` varchar(255) DEFAULT NULL,
   `id_language` int(11) NOT NULL,
-  `word_reference` bigint(20) NOT NULL
+  `id_word` bigint(20) NOT NULL,
+  `word_reference` bigint(20) NOT NULL,
+  `definition` varchar(255) DEFAULT NULL,
+  `word` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -237,11 +237,11 @@ CREATE TABLE `words_fr` (
 --
 
 CREATE TABLE `words_ko` (
-  `id_word` bigint(20) NOT NULL,
-  `definition` varchar(255) DEFAULT NULL,
-  `word` varchar(255) DEFAULT NULL,
   `id_language` int(11) NOT NULL,
-  `word_reference` bigint(20) NOT NULL
+  `id_word` bigint(20) NOT NULL,
+  `word_reference` bigint(20) NOT NULL,
+  `definition` varchar(255) DEFAULT NULL,
+  `word` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -251,20 +251,9 @@ CREATE TABLE `words_ko` (
 --
 
 CREATE TABLE `words_references` (
-  `id_word_ref` bigint(20) NOT NULL,
   `category` int(11) NOT NULL,
-  `language_level` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `words_references_lessons`
---
-
-CREATE TABLE `words_references_lessons` (
-  `words_references_id_word_ref` bigint(20) NOT NULL,
-  `lessons_id_lesson` int(11) NOT NULL
+  `language_level` int(11) NOT NULL,
+  `id_word_ref` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -311,11 +300,11 @@ ALTER TABLE `lessons`
   ADD KEY `FK98c8sfja1tjgys2yobn1pfq4b` (`language_level`);
 
 --
--- Indices de la tabla `lesson_words`
+-- Indices de la tabla `lessons_words`
 --
-ALTER TABLE `lesson_words`
-  ADD KEY `FKqb6kieyjofs2qs3knb0jo1tqd` (`id_ref`),
-  ADD KEY `FK6vvtcla2smpgxl7t3r42iu14i` (`id_lesson`);
+ALTER TABLE `lessons_words`
+  ADD KEY `FK4ys1sm7s0jcvs00ne25o980ca` (`id_ref`),
+  ADD KEY `FKf4ulu06yy1xx93srqlofxhgu` (`id_lesson`);
 
 --
 -- Indices de la tabla `words_aditional_info_ar`
@@ -399,13 +388,6 @@ ALTER TABLE `words_references`
   ADD PRIMARY KEY (`id_word_ref`),
   ADD KEY `FK5h41kgjj1uw36pp4a5670c4g5` (`category`),
   ADD KEY `FKdpr73vefs1n4fik2dak8om6ey` (`language_level`);
-
---
--- Indices de la tabla `words_references_lessons`
---
-ALTER TABLE `words_references_lessons`
-  ADD KEY `FKd0de19y38qmnm6qlom3y8y1f7` (`lessons_id_lesson`),
-  ADD KEY `FKd891ptf5fvafdigrt8iau7gsf` (`words_references_id_word_ref`);
 
 --
 -- Indices de la tabla `writing_system`
@@ -508,11 +490,11 @@ ALTER TABLE `lessons`
   ADD CONSTRAINT `FK98c8sfja1tjgys2yobn1pfq4b` FOREIGN KEY (`language_level`) REFERENCES `language_levels` (`id_level`);
 
 --
--- Filtros para la tabla `lesson_words`
+-- Filtros para la tabla `lessons_words`
 --
-ALTER TABLE `lesson_words`
-  ADD CONSTRAINT `FK6vvtcla2smpgxl7t3r42iu14i` FOREIGN KEY (`id_lesson`) REFERENCES `lessons` (`id_lesson`),
-  ADD CONSTRAINT `FKqb6kieyjofs2qs3knb0jo1tqd` FOREIGN KEY (`id_ref`) REFERENCES `words_references` (`id_word_ref`);
+ALTER TABLE `lessons_words`
+  ADD CONSTRAINT `FK4ys1sm7s0jcvs00ne25o980ca` FOREIGN KEY (`id_ref`) REFERENCES `words_references` (`id_word_ref`),
+  ADD CONSTRAINT `FKf4ulu06yy1xx93srqlofxhgu` FOREIGN KEY (`id_lesson`) REFERENCES `lessons` (`id_lesson`);
 
 --
 -- Filtros para la tabla `words_aditional_info_ar`
@@ -585,13 +567,6 @@ ALTER TABLE `words_ko`
 ALTER TABLE `words_references`
   ADD CONSTRAINT `FK5h41kgjj1uw36pp4a5670c4g5` FOREIGN KEY (`category`) REFERENCES `categories` (`id_category`),
   ADD CONSTRAINT `FKdpr73vefs1n4fik2dak8om6ey` FOREIGN KEY (`language_level`) REFERENCES `language_levels` (`id_level`);
-
---
--- Filtros para la tabla `words_references_lessons`
---
-ALTER TABLE `words_references_lessons`
-  ADD CONSTRAINT `FKd0de19y38qmnm6qlom3y8y1f7` FOREIGN KEY (`lessons_id_lesson`) REFERENCES `lessons` (`id_lesson`),
-  ADD CONSTRAINT `FKd891ptf5fvafdigrt8iau7gsf` FOREIGN KEY (`words_references_id_word_ref`) REFERENCES `words_references` (`id_word_ref`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

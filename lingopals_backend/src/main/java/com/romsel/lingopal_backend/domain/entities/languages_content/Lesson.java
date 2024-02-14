@@ -30,7 +30,7 @@ public class Lesson {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;
 
-    @JoinTable(name = "lesson_words", 
+    @JoinTable(name = "lessons_words", 
             joinColumns = @JoinColumn(name = "id_lesson"),
             inverseJoinColumns = @JoinColumn(name = "id_ref"))
     @ManyToMany
