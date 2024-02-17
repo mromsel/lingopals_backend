@@ -18,37 +18,11 @@ public class GlobalExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
-	//#region Entity Exceptions
-	@ExceptionHandler(LanguageException.class)
-	public ResponseEntity<ErrorResponse> handleResourceEmployee(LanguageException ex, HttpServletRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
-				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
-				request.getRequestURI());
-		logError("Error handling language resource", ex, request);
-		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	private void logError(String message, Exception ex, HttpServletRequest request) {
+		logger.error("{} - Request URI: {}", message, request.getRequestURI(), ex);
 	}
 
-	//#endregion
-
-	@ExceptionHandler(EmailException.class)
-	public ResponseEntity<ErrorResponse> handleResourceEmail(EmailException ex, HttpServletRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
-				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
-				request.getRequestURI());
-		logError("Error sending email", ex, request);
-		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
-	}
-
-	@ExceptionHandler(UnauthorizedException.class)
-	public ResponseEntity<ErrorResponse> handleResourceUnauthorizedException(UnauthorizedException ex,
-			HttpServletRequest request) {
-		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), null, "", "",
-				request.getRequestURI());
-		logError("UnauthorizedException: ", ex, request);
-		return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
-	}
-
-	//#region General Exceptions
+	// #region General Exceptions
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpStatus status,
@@ -72,9 +46,88 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	private void logError(String message, Exception ex, HttpServletRequest request) {
-		logger.error("{} - Request URI: {}", message, request.getRequestURI(), ex);
+	// #endregion
+
+	// #region Entity Exceptions
+
+	@ExceptionHandler(WordReferenceException.class)
+	public ResponseEntity<ErrorResponse> handleResourceWordReference(WordReferenceException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling word reference resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
 	}
 
-	//#endregion
+	@ExceptionHandler(WordException.class)
+	public ResponseEntity<ErrorResponse> handleResourceWord(WordException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling word resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(WordAditionalInfoException.class)
+	public ResponseEntity<ErrorResponse> handleResourceWordAditionalInfo(WordAditionalInfoException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling word aditional info resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(LanguageException.class)
+	public ResponseEntity<ErrorResponse> handleResourceLanguage(LanguageException ex, 
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling language resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(LanguageLevelException.class)
+	public ResponseEntity<ErrorResponse> handleResourceLanguageLevel(LanguageLevelException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling language level resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(CategoryException.class)
+	public ResponseEntity<ErrorResponse> handleResourceCategory(CategoryException ex, HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling category resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(WritingSystemException.class)
+	public ResponseEntity<ErrorResponse> handleResourceWritingSystem(WritingSystemException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling writing system resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(LessonException.class)
+	public ResponseEntity<ErrorResponse> handleResourceLesson(LessonException ex, HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling lesson resource", ex, request);
+		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+	}
+
+	// #endregion
+
 }
