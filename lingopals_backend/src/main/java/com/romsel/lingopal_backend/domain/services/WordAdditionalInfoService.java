@@ -9,6 +9,6 @@ import com.romsel.lingopal_backend.domain.repositories.WordAdditionalInfoReposit
 public class WordAdditionalInfoService {
 
     @Autowired
-    private WordAdditionalInfoRepository wordAditionalInfoRepository;
+    private WordAdditionalInfoRepository wordAdditionalInfoRepository;
 
 }
