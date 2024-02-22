@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import lombok.Getter;
 
 @Getter
-public class WordAditionalInfoException extends RuntimeException {
+public class WordAdditionalInfoException extends RuntimeException {
     
     private static final long serialVersionUID = 1L;
 
     private final HttpStatus httpStatus;
     private final List<String> customErrors;
 
-    public WordAditionalInfoException(HttpStatus httpStatus, List<String> customErrors) {
+    public WordAdditionalInfoException(HttpStatus httpStatus, List<String> customErrors) {
         this.httpStatus = httpStatus;
         this.customErrors = customErrors;
     }

@@ -8,6 +8,6 @@ import jakarta.persistence.OneToOne;
 public class WordES extends Word {
     
     @OneToOne(optional = false, mappedBy = "word")
-    private WordAditionalInfoES aditionalInfo;
+    private WordAdditionalInfoES additionalInfo;
 
 }

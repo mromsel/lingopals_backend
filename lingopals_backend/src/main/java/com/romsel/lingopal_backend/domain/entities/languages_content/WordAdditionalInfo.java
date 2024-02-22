@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public abstract class WordAditionalInfo {
+public abstract class WordAdditionalInfo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idWordAditionalInfo;
+    private Long idWordAdditionalInfo;
 
     @Column(name = "romanization")
     private String romanization;

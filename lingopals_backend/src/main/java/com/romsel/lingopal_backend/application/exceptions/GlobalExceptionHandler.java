@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling word reference resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(WordException.class)
@@ -67,17 +67,17 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling word resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
-	@ExceptionHandler(WordAditionalInfoException.class)
-	public ResponseEntity<ErrorResponse> handleResourceWordAditionalInfo(WordAditionalInfoException ex,
+	@ExceptionHandler(WordAdditionalInfoException.class)
+	public ResponseEntity<ErrorResponse> handleResourceWordAdditionalInfo(WordAdditionalInfoException ex,
 			HttpServletRequest request) {
 		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling word aditional info resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(LanguageException.class)
@@ -87,7 +87,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling language resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(LanguageLevelException.class)
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling language level resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(CategoryException.class)
@@ -106,7 +106,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling category resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(WritingSystemException.class)
@@ -116,7 +116,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling writing system resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	@ExceptionHandler(LessonException.class)
@@ -125,7 +125,7 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling lesson resource", ex, request);
-		return new ResponseEntity<ErrorResponse>(errorResponse, ex.getHttpStatus());
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	// #endregion
