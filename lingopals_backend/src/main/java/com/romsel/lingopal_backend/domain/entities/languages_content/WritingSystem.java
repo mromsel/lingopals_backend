@@ -32,6 +32,4 @@ public class WritingSystem {
     @Column(name = "iso_code", unique = true)
     private String isoCode;
 
-    @OneToMany(mappedBy = "writingSystem")
-    private List<Language> languages;
 }
