@@ -3,19 +3,23 @@ package com.romsel.lingopal_backend.domain.entities.languages_content;
 import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
+@Table(name = "words_additional_info")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@MappedSuperclass
-public abstract class WordAdditionalInfo {
+public class WordAdditionalInfo {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +49,7 @@ public abstract class WordAdditionalInfo {
     @Column(name = "changes_on_plural", nullable = false)
     private Boolean changesOnPlural;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "id_word", insertable = false, updatable = false)
+    private Word word;
 }
