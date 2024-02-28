@@ -25,15 +25,15 @@ public class Word {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_word")
+    @Column(name = "id_word", insertable = false)
     private Long idWord;
 
-    @ManyToOne(optional = false, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id_word_reference", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = WordReference.class, optional = false, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_word_reference", updatable = false)
     private WordReference wordReference;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_language", insertable = false, updatable = false)
+    @JoinColumn(name = "id_language", updatable = false)
     private Language language;
 
     @Column(name = "word")
@@ -42,6 +42,6 @@ public class Word {
     @Column(name = "definition")
     private String definition;
 
-    @OneToOne(optional = false, mappedBy = "word", fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = WordAdditionalInfo.class, mappedBy = "word", fetch = FetchType.LAZY)
     private WordAdditionalInfo additionalInfo;
 }

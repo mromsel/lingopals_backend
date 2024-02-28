@@ -5,6 +5,8 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
@@ -20,17 +22,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class WordReference {
-    
+
     @Id
-    @Column(name = "id_word_ref")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_word_ref", insertable = false)
     private Long idWordRef;
 
     @JoinColumn(name = "language_level")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = LanguageLevel.class, optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;
 
     @JoinColumn(name = "category")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Category.class, optional = true, fetch = FetchType.LAZY)
     private Category category;
 
     @ManyToMany(mappedBy = "listWordsReferences")
