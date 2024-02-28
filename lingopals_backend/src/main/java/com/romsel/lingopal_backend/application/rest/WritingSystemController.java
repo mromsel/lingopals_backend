@@ -1,6 +1,8 @@
 package com.romsel.lingopal_backend.application.rest;
 
 import java.util.List;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopal_backend.application.exceptions.WritingSystemException;
+import com.romsel.lingopal_backend.application.response.WritingSystemDto;
 import com.romsel.lingopal_backend.domain.entities.languages_content.WritingSystem;
 import com.romsel.lingopal_backend.domain.services.WritingSystemService;
 
@@ -19,15 +22,21 @@ import com.romsel.lingopal_backend.domain.services.WritingSystemService;
 public class WritingSystemController {
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private WritingSystemService writingSystemService;
 
     @GetMapping("writing-systems")
-    public List<WritingSystem> getAllWritingSystems() {
-        return writingSystemService.getAllWritingSystems();
+    public List<WritingSystemDto> getAllWritingSystems() {
+        return writingSystemService.getAllWritingSystems()
+                .stream()
+                .map(writingSystem -> modelMapper.map(writingSystem, WritingSystemDto.class))
+                .toList();
     }
 
     @GetMapping("writing-systems/{idWritingSystem}")
-    public ResponseEntity<WritingSystem> getWritingSystemByID(@PathVariable int idWritingSystem) {
+    public ResponseEntity<WritingSystemDto> getWritingSystemByID(@PathVariable int idWritingSystem) {
         WritingSystem writingSystem;
 
         try {
@@ -36,7 +45,9 @@ public class WritingSystemController {
             throw new WritingSystemException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
         }
 
-        return new ResponseEntity<>(writingSystem, HttpStatus.OK);
+        WritingSystemDto writingSystemDto = modelMapper.map(writingSystem, WritingSystemDto.class);
+
+        return new ResponseEntity<>(writingSystemDto, HttpStatus.OK);
     }
 
 }
