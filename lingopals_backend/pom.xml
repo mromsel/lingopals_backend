@@ -9,10 +9,10 @@
 		<relativePath/>
 	</parent>
 	<groupId>com.romsel</groupId>
-	<artifactId>lingopal_backend</artifactId>
+	<artifactId>lingopals_backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lingopal_backend</name>
-	<description>LingoApp back-end</description>
+	<name>lingopals_backend</name>
+	<description>LingoPals app back-end</description>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
