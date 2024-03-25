@@ -11,6 +11,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.romsel.lingopals_backend.application.exceptions.words_related.CategoryException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageLevelException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LessonException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordAdditionalInfoException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordReferenceException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WritingSystemException;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
