@@ -60,8 +60,11 @@ public class User {
     @JoinColumn(name = "id_language")
     private Language preferredLanguage;
 
-    @OneToOne(optional = false, orphanRemoval = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_user_progress_data", updatable = false)
+    @Column(name = "time_zone", nullable = false)
+    private String timeZone;
+
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user_progress_data", nullable = true)
     private UserProgressData userProgressData;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)

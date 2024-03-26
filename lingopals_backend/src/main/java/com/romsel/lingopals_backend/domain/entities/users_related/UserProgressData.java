@@ -25,11 +25,11 @@ public class UserProgressData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_user_progress_data", nullable = false)
+    @Column(name = "id_user_progress_data", nullable = false, updatable = false)
     private Long idUserProgressData;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", insertable = false, updatable = false)
+    @JoinColumn(name = "id_user", updatable = false)
     @ToString.Exclude
     private User user;
 
