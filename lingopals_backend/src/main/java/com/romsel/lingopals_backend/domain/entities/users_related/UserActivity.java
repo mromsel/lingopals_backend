@@ -25,7 +25,8 @@ public class UserActivity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "id_user_activity")
+    private Long idUserActivity;
 
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
