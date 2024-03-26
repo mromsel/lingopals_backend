@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserActivityException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserCompletedLessonsException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserLanguagesException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserProgressDataException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.CategoryException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageException;
@@ -23,6 +24,7 @@ import com.romsel.lingopals_backend.application.exceptions.words_related.WordAdd
 import com.romsel.lingopals_backend.application.exceptions.words_related.WordException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.WordReferenceException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.WritingSystemException;
+import com.romsel.lingopals_backend.domain.entities.users_related.UserLanguages;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -181,6 +183,16 @@ public class GlobalExceptionHandler {
 				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
 				request.getRequestURI());
 		logError("Error handling user-progress resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(UserLanguagesException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUserLanguages(UserLanguagesException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user-languages resource", ex, request);
 		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 

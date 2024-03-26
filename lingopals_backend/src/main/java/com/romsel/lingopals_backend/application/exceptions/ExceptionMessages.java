@@ -76,6 +76,11 @@ public class ExceptionMessages {
     public static final String USER_PROGRESS_UPDATE_NOT_FOUND = "Error updating user-progress because it does not exist in the database";
     public static final String USER_PROGRESS_DELETE_ERROR = "Error deleting user-progress";
 
+    public static final String USER_LANGUAGES_NOT_FOUND = "The user-language with that ID does not exist in the database";
+    public static final String USER_LANGUAGES_UPDATE_ERROR = "Error updating user-language";
+    public static final String USER_LANGUAGES_UPDATE_NOT_FOUND = "Error updating user-language because it does not exist in the database";
+    public static final String USER_LANGUAGES_DELETE_ERROR = "Error deleting user-language";
+
     // #endregion
 
 }
