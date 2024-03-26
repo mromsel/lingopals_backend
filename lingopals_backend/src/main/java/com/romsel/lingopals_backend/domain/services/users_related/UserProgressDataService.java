@@ -24,4 +24,9 @@ public class UserProgressDataService {
     public UserProgressData getUserProgressByUserID(Long idUser) {
         return userProgressDataRepository.findByUser(userService.getUserByID(idUser));
     }
+
+    public UserProgressData save(UserProgressData userProgressData) {
+        return userProgressDataRepository.save(userProgressData);
+    }
+
 }

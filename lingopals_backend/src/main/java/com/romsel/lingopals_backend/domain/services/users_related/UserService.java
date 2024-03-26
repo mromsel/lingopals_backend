@@ -26,4 +26,8 @@ public class UserService {
                 .orElseThrow(
                         () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

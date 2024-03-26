@@ -59,6 +59,7 @@ public class ExceptionMessages {
     public static final String USER_UPDATE_ERROR = "Error updating user";
     public static final String USER_UPDATE_NOT_FOUND = "Error updating user because it does not exist in the database";
     public static final String USER_DELETE_ERROR = "Error deleting user";
+    public static final String USER_CREATE_ERROR = "Error creating user";
 
     public static final String USER_ACTIVITY_NOT_FOUND = "The user-activity with that ID does not exist in the database";
     public static final String USER_ACTIVITY_UPDATE_ERROR = "Error updating user-activity";
