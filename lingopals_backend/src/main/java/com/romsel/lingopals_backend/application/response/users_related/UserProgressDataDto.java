@@ -2,8 +2,6 @@ package com.romsel.lingopals_backend.application.response.users_related;
 
 import java.time.ZonedDateTime;
 
-import com.romsel.lingopals_backend.domain.entities.users_related.User;
-
 import lombok.Data;
 
 /**
@@ -13,7 +11,7 @@ import lombok.Data;
 public class UserProgressDataDto {
 
     private Long idUserProgressData;
-    private User user;
+    private UserBasicDto user;
     private Integer coins;
     private Integer currentStreak;
     private ZonedDateTime streakStartDate;
