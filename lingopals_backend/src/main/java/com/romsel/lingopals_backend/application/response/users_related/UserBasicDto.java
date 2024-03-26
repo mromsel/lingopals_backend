@@ -15,4 +15,6 @@ public class UserBasicDto {
     private String email;
     private String profileImageUrl;
     private Language preferredLanguage;
+    private String timeZone;
+
 }
