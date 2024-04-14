@@ -48,4 +48,7 @@ public class UserProgressData {
     @Column(name = "max_streak") // al iniciar por defecto es 0
     private Integer maxStreak;
 
+    @Column(name = "xp_points")
+    private Long xpPoints;
+
 }

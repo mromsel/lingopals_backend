@@ -17,5 +17,6 @@ public class UserProgressDataDto {
     private ZonedDateTime streakStartDate;
     private ZonedDateTime streakEndDate;
     private Integer maxStreak;
+    private Long xpPoints;
 
 }
