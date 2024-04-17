@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.romsel.lingopals_backend.application.exceptions.auth.LoginException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserActivityException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserCompletedLessonsException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserException;
@@ -24,8 +25,6 @@ import com.romsel.lingopals_backend.application.exceptions.words_related.WordAdd
 import com.romsel.lingopals_backend.application.exceptions.words_related.WordException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.WordReferenceException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.WritingSystemException;
-import com.romsel.lingopals_backend.domain.entities.users_related.UserLanguages;
-
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -59,6 +58,21 @@ public class GlobalExceptionHandler {
 				ex.getStackTrace()[0].toString(), request.getRequestURI());
 		logError("General error handling", ex, request);
 		return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// #endregion
+
+	// #region Auth Exceptions
+
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<ErrorResponse> handleLogin(LoginException ex,
+			HttpServletRequest request) {
+		HttpStatus exHttpStatus = HttpStatus.UNAUTHORIZED;
+		ErrorResponse errorResponse = new ErrorResponse(exHttpStatus.value(),
+				ex.getCustomErrors(), exHttpStatus.getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error in login", ex, request);
+		return new ResponseEntity<>(errorResponse, exHttpStatus);
 	}
 
 	// #endregion
