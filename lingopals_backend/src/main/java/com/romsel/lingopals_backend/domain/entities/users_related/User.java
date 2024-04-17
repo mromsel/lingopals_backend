@@ -3,6 +3,7 @@ package com.romsel.lingopals_backend.domain.entities.users_related;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import com.romsel.lingopals_backend.domain.entities.masters.Profile;
 import com.romsel.lingopals_backend.domain.entities.words_related.Language;
 
 import jakarta.persistence.CascadeType;
@@ -13,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -69,5 +72,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<UserActivity> activities;
+
+    @JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_profile"))
+    @ManyToMany
+    private List<Profile> profiles;
 
 }
