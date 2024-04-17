@@ -27,6 +27,12 @@ public class UserService {
                         () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
     }
 
+    public User getUserByNameOrEmail(String usernameOrEmail) {
+        return userRepository.findByUsernameOrEmail(usernameOrEmail)
+                .orElseThrow(
+                        () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }
