@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopals_backend.application.exceptions.ExceptionMessages;
+import com.romsel.lingopals_backend.application.exceptions.auth.LoginException;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserException;
+import com.romsel.lingopals_backend.application.response.users_related.LoginSuccessDto;
 import com.romsel.lingopals_backend.application.response.users_related.UserBasicDto;
+import com.romsel.lingopals_backend.application.response.users_related.UserLoginDto;
 import com.romsel.lingopals_backend.application.response.users_related.UserSignUpDto;
 import com.romsel.lingopals_backend.domain.entities.users_related.User;
 import com.romsel.lingopals_backend.domain.entities.users_related.UserProgressData;
@@ -92,10 +95,7 @@ public class UserController {
 
             userCreated = userService.save(newUser);
 
-            System.out.println(userCreated);
-
             UserProgressData userProgressData = new UserProgressData();
-            // userProgressData.setIdUserProgressData(userCreated.getIdUser());
             userProgressData.setCoins(0);
             userProgressData.setCurrentStreak(0);
             userProgressData.setMaxStreak(0);
@@ -115,6 +115,29 @@ public class UserController {
         UserBasicDto userBasicDto = modelMapper.map(userCreated, UserBasicDto.class);
 
         return new ResponseEntity<>(userBasicDto, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/users/login")
+    public ResponseEntity<LoginSuccessDto> login(@RequestBody UserLoginDto userReceived) {
+        User user;
+        try {
+            user = userService.getUserByNameOrEmail(userReceived.getUsernameOrEmail());
+        } catch (UserException e) {
+            throw new LoginException(List.of(ExceptionMessages.LOGIN_FAILED));
+        } catch (DataAccessException e2) {
+            throw new UserException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    List.of(e2.getMessage(), e2.getLocalizedMessage()));
+        }
+
+        if (user != null && (passwordEncoder.matches(userReceived.getPassword(), user.getPasswordHash()))) {
+            LoginSuccessDto loginSuccessDto = new LoginSuccessDto();
+            loginSuccessDto.setIdUser(user.getIdUser());
+            String token = "This is the Token";
+            loginSuccessDto.setToken(token);
+            return new ResponseEntity<>(loginSuccessDto, HttpStatus.OK);
+        }
+
+        throw new LoginException(List.of(ExceptionMessages.LOGIN_FAILED));
     }
 
 }
