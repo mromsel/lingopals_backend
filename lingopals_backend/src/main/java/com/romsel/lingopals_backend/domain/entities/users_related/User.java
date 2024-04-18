@@ -1,7 +1,10 @@
 package com.romsel.lingopals_backend.domain.entities.users_related;
 
+import java.sql.Date;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.romsel.lingopals_backend.domain.entities.masters.Profile;
 import com.romsel.lingopals_backend.domain.entities.words_related.Language;
@@ -76,5 +79,22 @@ public class User {
     @JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_profile"))
     @ManyToMany
     private List<Profile> profiles;
+
+    @OneToMany(mappedBy = "user1")
+    private Set<UserRelationships> relationships = new HashSet<>();
+
+    /**
+     * Adds a new relationship for this user with another user.
+     *
+     * @param otherUser      The other user involved in the relationship.
+     * @param connectionDate The date when the relationship was established.
+     */
+    public void addRelationship(User otherUser, Date connectionDate) {
+        UserRelationships relationship = new UserRelationships();
+        relationship.setUser1(this);
+        relationship.setUser2(otherUser);
+        relationship.setConnectionDate(connectionDate);
+        relationships.add(relationship);
+    }
 
 }
