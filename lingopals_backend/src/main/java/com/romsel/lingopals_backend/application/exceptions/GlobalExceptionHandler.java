@@ -11,6 +11,20 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.romsel.lingopals_backend.application.exceptions.auth.LoginException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserActivityException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserCompletedLessonsException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserLanguagesException;
+import com.romsel.lingopals_backend.application.exceptions.users_related.UserProgressDataException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.CategoryException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageLevelException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LessonException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordAdditionalInfoException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WordReferenceException;
+import com.romsel.lingopals_backend.application.exceptions.words_related.WritingSystemException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
@@ -48,7 +62,22 @@ public class GlobalExceptionHandler {
 
 	// #endregion
 
-	// #region Entity Exceptions
+	// #region Auth Exceptions
+
+	@ExceptionHandler(LoginException.class)
+	public ResponseEntity<ErrorResponse> handleLogin(LoginException ex,
+			HttpServletRequest request) {
+		HttpStatus exHttpStatus = HttpStatus.UNAUTHORIZED;
+		ErrorResponse errorResponse = new ErrorResponse(exHttpStatus.value(),
+				ex.getCustomErrors(), exHttpStatus.getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error in login", ex, request);
+		return new ResponseEntity<>(errorResponse, exHttpStatus);
+	}
+
+	// #endregion
+
+	// #region Words-related entities Exceptions
 
 	@ExceptionHandler(WordReferenceException.class)
 	public ResponseEntity<ErrorResponse> handleResourceWordReference(WordReferenceException ex,
@@ -130,4 +159,56 @@ public class GlobalExceptionHandler {
 
 	// #endregion
 
+	// #region Users-related entities Exceptions
+
+	@ExceptionHandler(UserException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUser(UserException ex, HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(UserActivityException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUserActivity(UserActivityException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user-activity resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(UserCompletedLessonsException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUserLessons(UserCompletedLessonsException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user-lessons resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(UserProgressDataException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUserProgress(UserProgressDataException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user-progress resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	@ExceptionHandler(UserLanguagesException.class)
+	public ResponseEntity<ErrorResponse> handleResourceUserLanguages(UserLanguagesException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling user-languages resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
+	// #endregion
 }

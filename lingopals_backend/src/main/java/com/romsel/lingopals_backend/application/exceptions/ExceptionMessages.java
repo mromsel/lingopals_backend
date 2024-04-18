@@ -9,6 +9,8 @@ public class ExceptionMessages {
 
     public static final String GENERIC_MESSAGE_ERROR = "A generic error occurred";
 
+    // #region Words-related Messages
+
     public static final String WORD_REFERENCE_NOT_FOUND = "The Word Reference with that ID does not exist in the database";
     public static final String WORD_REFERENCE_UPDATE_ERROR = "Error updating Word Reference";
     public static final String WORD_REFERENCE_UPDATE_NOT_FOUND = "Error updating Word Reference because it does not exist in the database";
@@ -48,5 +50,43 @@ public class ExceptionMessages {
     public static final String LESSON_UPDATE_ERROR = "Error updating Lesson";
     public static final String LESSON_UPDATE_NOT_FOUND = "Error updating Lesson because it does not exist in the database";
     public static final String LESSON_DELETE_ERROR = "Error deleting Lesson";
+
+    // #endregion
+
+    // #region Users-related Messages
+
+    public static final String USER_NOT_FOUND = "The user with that ID does not exist in the database";
+    public static final String USER_UPDATE_ERROR = "Error updating user";
+    public static final String USER_UPDATE_NOT_FOUND = "Error updating user because it does not exist in the database";
+    public static final String USER_DELETE_ERROR = "Error deleting user";
+    public static final String USER_CREATE_ERROR = "Error creating user";
+
+    public static final String USER_ACTIVITY_NOT_FOUND = "The user-activity with that ID does not exist in the database";
+    public static final String USER_ACTIVITY_UPDATE_ERROR = "Error updating user-activity";
+    public static final String USER_ACTIVITY_UPDATE_NOT_FOUND = "Error updating user-activity because it does not exist in the database";
+    public static final String USER_ACTIVITY_DELETE_ERROR = "Error deleting user-activity";
+
+    public static final String USER_LESSONS_NOT_FOUND = "The user-lessons with that ID does not exist in the database";
+    public static final String USER_LESSONS_ACTIVITY_UPDATE_ERROR = "Error updating user-lessons";
+    public static final String USER_LESSONS_UPDATE_NOT_FOUND = "Error updating user-lessons because it does not exist in the database";
+    public static final String USER_LESSONS_DELETE_ERROR = "Error deleting user-lessons";
+
+    public static final String USER_PROGRESS_NOT_FOUND = "The user-progress with that ID does not exist in the database";
+    public static final String USER_PROGRESS_ACTIVITY_UPDATE_ERROR = "Error updating user-progress";
+    public static final String USER_PROGRESS_UPDATE_NOT_FOUND = "Error updating user-progress because it does not exist in the database";
+    public static final String USER_PROGRESS_DELETE_ERROR = "Error deleting user-progress";
+
+    public static final String USER_LANGUAGES_NOT_FOUND = "The user-language with that ID does not exist in the database";
+    public static final String USER_LANGUAGES_UPDATE_ERROR = "Error updating user-language";
+    public static final String USER_LANGUAGES_UPDATE_NOT_FOUND = "Error updating user-language because it does not exist in the database";
+    public static final String USER_LANGUAGES_DELETE_ERROR = "Error deleting user-language";
+
+    // #endregion
+
+    // #region Auth Messages
+
+    public static final String LOGIN_FAILED = "Username/email or password are incorrect";
+
+    // #endregion
 
 }
