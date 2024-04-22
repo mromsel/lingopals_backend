@@ -11,5 +11,6 @@ public class WordReferenceDto {
     private long idWordRef;
     private LanguageLevelDto languageLevel;
     private CategoryDto category;
+    private String imageUrl;
 
 }
