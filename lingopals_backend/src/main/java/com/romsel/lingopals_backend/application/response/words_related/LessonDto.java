@@ -12,6 +12,7 @@ public class LessonDto {
 
     private Integer idLesson;
     private LanguageLevelDto languageLevel;
-    private List<WordReferenceDto> listWordsReferences;
+    private List<WordDto> listWordsOrigin;
+    private List<WordDto> listWordDestiny;
 
 }
