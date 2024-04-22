@@ -33,4 +33,8 @@ public class WordService {
                 .orElseThrow(() -> new WordException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.WORD_NOT_FOUND)));
     }
 
+    public List<Word> getWordsByWordReferencesAndLanguage(List<Long> idWordRefs, Integer idLanguage) {
+        return wordRepository.findAllByWordReferencesAndLanguage(idWordRefs, idLanguage);
+    }
+
 }
