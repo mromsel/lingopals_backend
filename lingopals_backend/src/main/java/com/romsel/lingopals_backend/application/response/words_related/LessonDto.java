@@ -11,6 +11,7 @@ import lombok.Data;
 public class LessonDto {
 
     private Integer idLesson;
+    private String lessonName;
     private LanguageLevelDto languageLevel;
     private List<WordDto> listWordsOrigin;
     private List<WordDto> listWordDestiny;

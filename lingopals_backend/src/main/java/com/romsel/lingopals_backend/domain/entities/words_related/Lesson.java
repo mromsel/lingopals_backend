@@ -26,6 +26,9 @@ public class Lesson {
     @Column(name = "id_lesson")
     private Integer idLesson;
 
+    @Column(name = "lessonName")
+    private String lessonName;
+
     @JoinColumn(name = "language_level")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;
