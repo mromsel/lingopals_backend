@@ -28,6 +28,12 @@ public class WordReference {
     @Column(name = "id_word_ref", insertable = false)
     private Long idWordRef;
 
+    @Column(name = "english_word")
+    private String englishWord;
+
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @JoinColumn(name = "language_level")
     @ManyToOne(targetEntity = LanguageLevel.class, optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;

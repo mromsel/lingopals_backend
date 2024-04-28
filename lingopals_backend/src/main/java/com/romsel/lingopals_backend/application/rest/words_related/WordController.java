@@ -35,6 +35,7 @@ public class WordController {
         return wordService.getAllWordsByLanguage(idLanguage)
                 .stream()
                 .map(word -> modelMapper.map(word, WordDto.class))
+                .sorted()
                 .toList();
     }
 
