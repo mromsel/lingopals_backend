@@ -10,79 +10,105 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.romsel.lingopals_backend.application.common.WordServiceFactory;
+import com.romsel.lingopals_backend.application.exceptions.ExceptionMessages;
+import com.romsel.lingopals_backend.application.exceptions.words_related.LanguageException;
 import com.romsel.lingopals_backend.application.exceptions.words_related.LessonException;
 import com.romsel.lingopals_backend.application.response.words_related.LessonDto;
 import com.romsel.lingopals_backend.application.response.words_related.LessonFullDto;
 import com.romsel.lingopals_backend.application.response.words_related.WordDto;
 import com.romsel.lingopals_backend.application.response.words_related.WordsInLessonDto;
+import com.romsel.lingopals_backend.domain.entities.users_related.UserLanguages;
 import com.romsel.lingopals_backend.domain.entities.words_related.Lesson;
 import com.romsel.lingopals_backend.domain.entities.words_related.WordReference;
+import com.romsel.lingopals_backend.domain.entities.words_related.words.Word;
 import com.romsel.lingopals_backend.domain.services.words_related.LessonService;
-import com.romsel.lingopals_backend.domain.services.words_related.WordService;
+import com.romsel.lingopals_backend.domain.services.words_related.words.WordService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api")
 public class LessonController {
 
-    @Autowired
-    private ModelMapper modelMapper;
+        @Autowired
+        private ModelMapper modelMapper;
 
-    @Autowired
-    private LessonService lessonService;
+        @Autowired
+        private LessonService lessonService;
 
-    @Autowired
-    private WordService wordService;
+        @Autowired
+        private WordServiceFactory wordServiceFactory;
 
-    @GetMapping("/lessons")
-    public List<LessonDto> getAllLessons() {
-        return lessonService.getAllLessons()
-                .stream()
-                .map(lesson -> modelMapper.map(lesson, LessonDto.class))
-                .toList();
-    }
-
-    @GetMapping("/lessons/{idLesson}")
-    public ResponseEntity<LessonFullDto> getLessonByID(@PathVariable int idLesson) {
-        Lesson lesson;
-
-        try {
-            lesson = lessonService.getLessonByID(idLesson);
-        } catch (DataAccessException e) {
-            throw new LessonException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
+        @GetMapping("/lessons")
+        public List<LessonDto> getAllLessons() {
+                return lessonService.getAllLessons()
+                                .stream()
+                                .map(lesson -> modelMapper.map(lesson, LessonDto.class))
+                                .toList();
         }
 
-        LessonFullDto lessonFullDto = modelMapper.map(lesson, LessonFullDto.class);
+        @SuppressWarnings("unchecked")
+        @GetMapping("/lessons/{idLesson}")
+        public ResponseEntity<LessonFullDto> getLessonByID(@PathVariable int idLesson,
+                        @RequestBody UserLanguages userLanguages) {
+                Lesson lesson;
 
-        List<Long> idsWordReferences = lesson.getListWordsReferences().stream().map(WordReference::getIdWordRef)
-                .toList();
-        List<WordDto> wordsOrigin = wordService.getWordsByWordReferencesAndLanguage(idsWordReferences, 1).stream()
-                .map(word -> modelMapper.map(word, WordDto.class)).toList();
+                try {
+                        lesson = lessonService.getLessonByID(idLesson);
+                } catch (DataAccessException e) {
+                        throw new LessonException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
+                }
 
-        List<WordDto> wordsDestiny = wordService.getWordsByWordReferencesAndLanguage(idsWordReferences, 2).stream()
-                .map(word -> modelMapper.map(word, WordDto.class)).toList();
+                LessonFullDto lessonFullDto = modelMapper.map(lesson, LessonFullDto.class);
 
-        List<WordsInLessonDto> list = idsWordReferences.stream()
-                .map(idWordReference -> {
+                WordService<Word, Long> wordServiceOrigin;
+                WordService<Word, Long> wordServiceTarget;
+                try {
+                        wordServiceOrigin = wordServiceFactory
+                                        .getWordServiceByIsoCode(userLanguages.getLanguageOrigin().getIsoCode());
+                        wordServiceTarget = wordServiceFactory
+                                        .getWordServiceByIsoCode(userLanguages.getLanguageTarget().getIsoCode());
+                } catch (IllegalArgumentException e) {
+                        throw new LanguageException(HttpStatus.NOT_FOUND,
+                                        List.of(ExceptionMessages.LANGUAGE_NOT_FOUND));
+                }
 
-                    WordsInLessonDto newWordsInLessonDto = new WordsInLessonDto();
-                    newWordsInLessonDto.setWordOrigin(
-                            wordsOrigin.stream()
-                                    .filter(word -> word.getIdWordRef().equals(idWordReference)).findFirst()
-                                    .get());
-                    newWordsInLessonDto.setWordTarget(
-                            wordsDestiny.stream()
-                                    .filter(word -> word.getIdWordRef().equals(idWordReference)).findFirst()
-                                    .get());
+                List<Long> idsWordReferences = lesson.getListWordsReferences().stream().map(WordReference::getIdWordRef)
+                                .toList();
+                List<WordDto> wordsOrigin = wordServiceOrigin.findByWordReferenceIn(idsWordReferences)
+                                .stream()
+                                .map(word -> modelMapper.map(word, WordDto.class)).toList();
 
-                    return newWordsInLessonDto;
-                })
-                .toList();
-        lessonFullDto.setWordsList(list);
+                List<WordDto> wordsDestiny = wordServiceTarget.findByWordReferenceIn(idsWordReferences)
+                                .stream()
+                                .map(word -> modelMapper.map(word, WordDto.class)).toList();
 
-        return new ResponseEntity<>(lessonFullDto, HttpStatus.OK);
-    }
+                List<WordsInLessonDto> list = idsWordReferences.stream()
+                                .map(idWordReference -> {
+
+                                        WordsInLessonDto newWordsInLessonDto = new WordsInLessonDto();
+                                        newWordsInLessonDto.setWordOrigin(
+                                                        wordsOrigin.stream()
+                                                                        .filter(word -> word.getIdWordRef()
+                                                                                        .equals(idWordReference))
+                                                                        .findFirst()
+                                                                        .orElse(null));
+                                        newWordsInLessonDto.setWordTarget(
+                                                        wordsDestiny.stream()
+                                                                        .filter(word -> word.getIdWordRef()
+                                                                                        .equals(idWordReference))
+                                                                        .findFirst()
+                                                                        .orElse(null));
+
+                                        return newWordsInLessonDto;
+                                })
+                                .toList();
+                lessonFullDto.setWordsList(list);
+
+                return new ResponseEntity<>(lessonFullDto, HttpStatus.OK);
+        }
 
 }
