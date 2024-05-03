@@ -18,7 +18,6 @@ import com.romsel.lingopals_backend.application.response.words_related.LessonDto
 import com.romsel.lingopals_backend.application.response.words_related.LessonFullDto;
 import com.romsel.lingopals_backend.application.response.words_related.WordDto;
 import com.romsel.lingopals_backend.application.response.words_related.WordsInLessonDto;
-import com.romsel.lingopals_backend.domain.entities.users_related.UserLanguages;
 import com.romsel.lingopals_backend.domain.entities.words_related.Lesson;
 import com.romsel.lingopals_backend.domain.entities.words_related.WordReference;
 import com.romsel.lingopals_backend.domain.entities.words_related.words.Word;
@@ -27,7 +26,6 @@ import com.romsel.lingopals_backend.domain.services.words_related.words.WordServ
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api")
@@ -51,9 +49,9 @@ public class LessonController {
         }
 
         @SuppressWarnings("unchecked")
-        @GetMapping("/lessons/{idLesson}")
+        @GetMapping("/lessons/{idLesson}/{isoLangOrigin}/{isoLangTarget}")
         public ResponseEntity<LessonFullDto> getLessonByID(@PathVariable int idLesson,
-                        @RequestBody UserLanguages userLanguages) {
+                        @PathVariable String isoLangOrigin, @PathVariable String isoLangTarget) {
                 Lesson lesson;
 
                 try {
@@ -68,9 +66,9 @@ public class LessonController {
                 WordService<Word, Long> wordServiceTarget;
                 try {
                         wordServiceOrigin = wordServiceFactory
-                                        .getWordServiceByIsoCode(userLanguages.getLanguageOrigin().getIsoCode());
+                                        .getWordServiceByIsoCode(isoLangOrigin);
                         wordServiceTarget = wordServiceFactory
-                                        .getWordServiceByIsoCode(userLanguages.getLanguageTarget().getIsoCode());
+                                        .getWordServiceByIsoCode(isoLangTarget);
                 } catch (IllegalArgumentException e) {
                         throw new LanguageException(HttpStatus.NOT_FOUND,
                                         List.of(ExceptionMessages.LANGUAGE_NOT_FOUND));
