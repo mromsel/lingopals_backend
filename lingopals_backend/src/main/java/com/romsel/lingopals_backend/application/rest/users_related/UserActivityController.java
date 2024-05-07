@@ -16,6 +16,7 @@ import com.romsel.lingopals_backend.application.common.Constants;
 import com.romsel.lingopals_backend.application.exceptions.users_related.UserActivityException;
 import com.romsel.lingopals_backend.application.response.users_related.UserActivityDto;
 import com.romsel.lingopals_backend.domain.entities.elements.Activity;
+import com.romsel.lingopals_backend.domain.entities.users_related.ActivityResult;
 import com.romsel.lingopals_backend.domain.entities.users_related.UserActivity;
 import com.romsel.lingopals_backend.domain.services.users_related.UserActivityService;
 import com.romsel.lingopals_backend.domain.services.users_related.UserService;
@@ -70,6 +71,10 @@ public class UserActivityController {
             }
 
             userActivity.setXpGained(Constants.XP_GAINED_PER_ACTIVITY);
+
+            userActivity.setResults(userActivityDto.getResults().stream()
+                    .map(resultDto -> modelMapper.map(resultDto, ActivityResult.class)).toList());
+            this.userActivityService.saveActivityResults(userActivity);
 
             this.userActivityService.save(userActivity);
         } catch (Exception e) {
