@@ -19,6 +19,7 @@ import com.romsel.lingopals_backend.domain.entities.elements.Activity;
 import com.romsel.lingopals_backend.domain.entities.users_related.ActivityResult;
 import com.romsel.lingopals_backend.domain.entities.users_related.UserActivity;
 import com.romsel.lingopals_backend.domain.services.users_related.UserActivityService;
+import com.romsel.lingopals_backend.domain.services.users_related.UserReviewWordsService;
 import com.romsel.lingopals_backend.domain.services.users_related.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,9 @@ public class UserActivityController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserReviewWordsService userReviewWordsService;
 
     @GetMapping("/users-activities")
     public List<UserActivityDto> getAllUsersActivities() {
@@ -74,7 +78,7 @@ public class UserActivityController {
 
             userActivity.setResults(userActivityDto.getResults().stream()
                     .map(resultDto -> modelMapper.map(resultDto, ActivityResult.class)).toList());
-            this.userActivityService.saveActivityResults(userActivity);
+            this.userReviewWordsService.saveActivityResults(userActivity);
 
             this.userActivityService.save(userActivity);
         } catch (Exception e) {
