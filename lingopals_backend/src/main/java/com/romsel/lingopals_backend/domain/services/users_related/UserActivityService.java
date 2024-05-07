@@ -25,4 +25,8 @@ public class UserActivityService {
         return userActivityRepository.findByUser(userService.getUserByID(idUser));
     }
 
+    public UserActivity save(UserActivity userActivity) {
+        return userActivityRepository.save(userActivity);
+    }
+
 }
