@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class UserActivity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user_activity")
     private Long idUserActivity;
 
@@ -35,6 +35,17 @@ public class UserActivity {
     @Column(name = "activity_date", nullable = false)
     private ZonedDateTime date;
 
+    /**
+     * NOTE: use Activity enum for this property
+     * 
+     * @see com.romsel.lingopals_backend.domain.entities.elements.Activity;
+     */
     @Column(name = "activity_type", nullable = false)
-    private Activity type;
+    private String type;
+
+    @Column(name = "lesson", nullable = true)
+    private Integer idLesson;
+
+    @Column(name = "xp_gained")
+    private Integer xpGained;
 }

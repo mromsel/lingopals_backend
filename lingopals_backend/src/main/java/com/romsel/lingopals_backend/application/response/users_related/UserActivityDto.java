@@ -1,10 +1,6 @@
 package com.romsel.lingopals_backend.application.response.users_related;
 
 import java.time.ZonedDateTime;
-
-import com.romsel.lingopals_backend.domain.entities.elements.Activity;
-import com.romsel.lingopals_backend.domain.entities.users_related.User;
-
 import lombok.Data;
 
 /**
@@ -14,8 +10,10 @@ import lombok.Data;
 public class UserActivityDto {
 
     private Long idUserActivity;
-    private User user;
+    private Long idUser;
     private ZonedDateTime date;
-    private Activity type;
+    private String type;
+    private Integer idLesson;
+    private Integer xpGained;
 
 }
