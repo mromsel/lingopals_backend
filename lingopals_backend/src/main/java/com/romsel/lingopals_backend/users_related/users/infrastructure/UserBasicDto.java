@@ -1,6 +1,7 @@
 package com.romsel.lingopals_backend.users_related.users.infrastructure;
 
-import com.romsel.lingopals_backend.masters.languages.domain.Language;
+import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageDto;
+import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesDto;
 
 import lombok.Data;
 
@@ -14,7 +15,8 @@ public class UserBasicDto {
     private String username;
     private String email;
     private String profileImageUrl;
-    private Language preferredLanguage;
+    private LanguageDto preferredLanguage;
+    private UserLanguagesDto preferredUserLanguages;
     private String timeZone;
 
 }

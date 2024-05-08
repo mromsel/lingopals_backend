@@ -9,6 +9,7 @@ import java.util.Set;
 import com.romsel.lingopals_backend.masters.languages.domain.Language;
 import com.romsel.lingopals_backend.masters.profiles.domain.Profile;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
+import com.romsel.lingopals_backend.users_related.users_languages.domain.UserLanguages;
 import com.romsel.lingopals_backend.users_related.users_progress.domain.UserProgressData;
 import com.romsel.lingopals_backend.users_related.users_relationships.domain.UserRelationships;
 
@@ -82,6 +83,10 @@ public class User {
     @JoinTable(name = "users_profiles", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_profile"))
     @ManyToMany
     private List<Profile> profiles;
+
+    @ManyToOne
+    @JoinColumn(name = "preferred_user_languages", nullable = true)
+    private UserLanguages preferredUserLanguages;
 
     @OneToMany(mappedBy = "user1")
     private Set<UserRelationships> relationships = new HashSet<>();
