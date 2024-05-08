@@ -1,0 +1,14 @@
+package com.romsel.lingopals_backend.words_related.words.infrastructure.words_languages.controllers;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.romsel.lingopals_backend.words_related.words.domain.words_languages.entities.WordFR;
+import com.romsel.lingopals_backend.words_related.words.infrastructure.WordControllerImpl;
+import com.romsel.lingopals_backend.words_related.words.infrastructure.words_languages.services.WordFRService;
+
+@RestController
+@RequestMapping("/api/words/fr")
+public class WordFRController extends WordControllerImpl<WordFR, WordFRService> {
+
+}
