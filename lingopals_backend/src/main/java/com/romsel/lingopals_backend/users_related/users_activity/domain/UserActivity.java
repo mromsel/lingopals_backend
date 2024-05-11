@@ -4,6 +4,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import com.romsel.lingopals_backend.users_related.users.domain.User;
+import com.romsel.lingopals_backend.users_related.users_languages.domain.UserLanguages;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,10 @@ public class UserActivity {
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user_languages", nullable = false)
+    private UserLanguages userLanguages;
 
     @Column(name = "activity_date", nullable = false)
     private ZonedDateTime date;
