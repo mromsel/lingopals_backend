@@ -63,6 +63,16 @@ public class GlobalExceptionHandler {
 
 	// #endregion
 
+	@ExceptionHandler(BaseException.class)
+	public ResponseEntity<ErrorResponse> handleResourceBase(BaseException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling xp level resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
+	}
+
 	// #region Auth Exceptions
 
 	@ExceptionHandler(LoginException.class)
