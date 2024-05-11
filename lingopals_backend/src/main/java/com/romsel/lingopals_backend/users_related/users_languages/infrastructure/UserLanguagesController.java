@@ -39,10 +39,10 @@ public class UserLanguagesController {
                 .toList();
     }
 
-    @PostMapping("/users-language/change-preferred")
+    @PostMapping("/users-languages/change-preferred")
     public ResponseEntity<?> changePreferredUserLanguages(@RequestBody UserLanguagesDto userLanguagesDto) {
 
-        this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getUser().getIdUser(),
+        this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getIdUser(),
                 userLanguagesDto.getIdUserLanguages());
 
         return new ResponseEntity<>(HttpStatus.OK);
