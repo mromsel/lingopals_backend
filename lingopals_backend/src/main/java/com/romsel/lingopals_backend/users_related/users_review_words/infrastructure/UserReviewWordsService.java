@@ -66,7 +66,7 @@ public class UserReviewWordsService {
                 UserReviewWords reviewWords = new UserReviewWords(
                         idUser,
                         activityResult.getIdWordRef(),
-                        userActivity.getUserLanguages().getIdUserLanguages(),
+                        userActivity.getUserLanguages().getId(),
                         difficulty,
                         ZonedDateTime.now());
 

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopals_backend.common.exceptions.ExceptionMessages;
+import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
+import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeService;
 import com.romsel.lingopals_backend.masters.languages.domain.LanguageException;
+import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
 import com.romsel.lingopals_backend.words_related.lessons.domain.Lesson;
 import com.romsel.lingopals_backend.words_related.lessons.domain.LessonException;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
@@ -32,6 +35,9 @@ public class LessonController {
 
         @Autowired
         private LessonService lessonService;
+
+        @Autowired
+        private ActivityTypeService activityTypeService;
 
         @Autowired
         private WordServiceFactory wordServiceFactory;
@@ -101,6 +107,8 @@ public class LessonController {
                                 })
                                 .toList();
                 lessonFullDto.setWordsList(list);
+                lessonFullDto.setActivityType(modelMapper.map(
+                                activityTypeService.findByType(ActivityEnum.LESSON.name()), ActivityTypeDto.class));
 
                 return new ResponseEntity<>(lessonFullDto, HttpStatus.OK);
         }
