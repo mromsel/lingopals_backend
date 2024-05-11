@@ -21,6 +21,8 @@ import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActi
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivityException;
 import com.romsel.lingopals_backend.users_related.users_completed_lessons.infrastructure.UserCompletedLessonsService;
 import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
+import com.romsel.lingopals_backend.users_related.users_progress.domain.level_up.UserLevelManager;
+import com.romsel.lingopals_backend.users_related.users_progress.infrastructure.level_up.UserLevelUpdateDto;
 import com.romsel.lingopals_backend.users_related.users_review_words.infrastructure.UserReviewWordsService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +53,9 @@ public class UserActivityController {
     @Autowired
     private ActivityTypeService activityTypeService;
 
+    @Autowired
+    private UserLevelManager userLevelManager;
+
     @GetMapping("/users-activities")
     public List<UserActivityDto> getAllUsersActivities() {
         return userActivityService.getAllUsersActivities()
@@ -71,6 +76,7 @@ public class UserActivityController {
     public ResponseEntity<?> create(@RequestBody UserActivityDto userActivityDto) {
         UserActivity userActivity = new UserActivity();
 
+        UserLevelUpdateDto userLevelUpdateDto = null;
         try {
             userActivity.setUser(userService.getUserByID(userActivityDto.getIdUser()));
             userActivity.setDate(ZonedDateTime.now());
@@ -86,23 +92,26 @@ public class UserActivityController {
             userActivity.setActivityType(activityTypeService.findByType(userActivityDto.getActivityType().getType()));
 
             if (userActivity.getActivityType().getType().equals(ActivityEnum.LESSON.name())) {
+                /*
+                 * In lesson add the id and
+                 * add to completed lessons
+                 */
                 userActivity.setIdLesson(userActivityDto.getIdLesson());
                 this.userCompletedLessonsService.save(userActivity);
             }
 
+            // Add xp
+            userLevelUpdateDto = this.userLevelManager.addXP(userActivity.getUser().getIdUser(), 50);
+            userActivity.setXpGained(50);
+
+            // Save activity
             this.userActivityService.save(userActivity);
 
         } catch (Exception e) {
             throw new UserActivityException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(userLevelUpdateDto, HttpStatus.OK);
     }
 
-    public boolean checkIfActivityExist(String activity) {
-        return List.of(ActivityEnum.values())
-                .stream()
-                .map(Enum::name)
-                .anyMatch(act -> act.equals(activity));
-    }
 }
