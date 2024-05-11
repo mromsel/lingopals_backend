@@ -15,6 +15,7 @@ import com.romsel.lingopals_backend.auth.domain.LoginException;
 import com.romsel.lingopals_backend.masters.language_levels.domain.LanguageLevelException;
 import com.romsel.lingopals_backend.masters.languages.domain.LanguageException;
 import com.romsel.lingopals_backend.masters.writing_systems.domain.WritingSystemException;
+import com.romsel.lingopals_backend.masters.xp_levels.domain.XPLevelException;
 import com.romsel.lingopals_backend.users_related.users.domain.UserException;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivityException;
 import com.romsel.lingopals_backend.users_related.users_completed_lessons.domain.UserCompletedLessonsException;
@@ -73,6 +74,20 @@ public class GlobalExceptionHandler {
 				request.getRequestURI());
 		logError("Error in login", ex, request);
 		return new ResponseEntity<>(errorResponse, exHttpStatus);
+	}
+
+	// #endregion
+
+	// #region Masters Exception
+
+	@ExceptionHandler(XPLevelException.class)
+	public ResponseEntity<ErrorResponse> handleResourceXpLevel(XPLevelException ex,
+			HttpServletRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(ex.getHttpStatus().value(),
+				ex.getCustomErrors(), ex.getHttpStatus().getReasonPhrase(), ex.getStackTrace()[0].toString(),
+				request.getRequestURI());
+		logError("Error handling xp level resource", ex, request);
+		return new ResponseEntity<>(errorResponse, ex.getHttpStatus());
 	}
 
 	// #endregion
