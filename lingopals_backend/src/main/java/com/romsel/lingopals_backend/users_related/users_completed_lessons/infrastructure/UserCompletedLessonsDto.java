@@ -15,6 +15,7 @@ public class UserCompletedLessonsDto {
 
     private Long idCompletedLesson;
     private User user;
+    private Long idUserLanguages;
     private Lesson lesson;
     private ZonedDateTime completionDate;
 

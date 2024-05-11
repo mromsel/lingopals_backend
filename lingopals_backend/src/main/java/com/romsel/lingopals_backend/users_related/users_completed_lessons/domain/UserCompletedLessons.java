@@ -25,13 +25,16 @@ import lombok.NoArgsConstructor;
 public class UserCompletedLessons {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user_completed_lesson")
     private Long idCompletedLesson;
 
     @ManyToOne
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
+
+    @Column(name = "id_user_languages", nullable = false)
+    private Long idUserLanguages;
 
     @ManyToOne
     @JoinColumn(name = "id_lesson", nullable = false)
