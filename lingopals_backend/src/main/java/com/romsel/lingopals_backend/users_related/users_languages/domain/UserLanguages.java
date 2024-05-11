@@ -31,7 +31,7 @@ public class UserLanguages {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user_languages")
-    private Long idUserLanguages;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")

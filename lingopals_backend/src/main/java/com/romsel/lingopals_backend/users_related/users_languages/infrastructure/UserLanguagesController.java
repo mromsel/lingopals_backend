@@ -43,7 +43,7 @@ public class UserLanguagesController {
     public ResponseEntity<?> changePreferredUserLanguages(@RequestBody UserLanguagesDto userLanguagesDto) {
 
         this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getIdUser(),
-                userLanguagesDto.getIdUserLanguages());
+                userLanguagesDto.getId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

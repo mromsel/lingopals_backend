@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class UserLanguagesDto {
 
-    private Long idUserLanguages;
+    private Long id;
     private Long idUser;
     private LanguageDto languageTarget;
     private LanguageDto languageOrigin;
