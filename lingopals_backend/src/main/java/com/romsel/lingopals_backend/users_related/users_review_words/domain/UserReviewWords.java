@@ -27,6 +27,10 @@ public class UserReviewWords {
     @Column(name = "id_word_ref", nullable = false, updatable = false)
     private Long idWordReference;
 
+    @Id
+    @Column(name = "id_user_languages", nullable = false)
+    private Long idUserLanguages;
+
     @Column(name = "difficulty")
     private Integer difficulty;
 

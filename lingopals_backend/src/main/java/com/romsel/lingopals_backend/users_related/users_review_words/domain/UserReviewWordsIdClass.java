@@ -14,4 +14,5 @@ public class UserReviewWordsIdClass implements Serializable {
 
     private Long idUser;
     private Long idWordReference;
+    private Long idUserLanguages;
 }

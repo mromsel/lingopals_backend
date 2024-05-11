@@ -18,6 +18,7 @@ import com.romsel.lingopals_backend.users_related.users_activity.domain.Activity
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityResult;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivityException;
+import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
 import com.romsel.lingopals_backend.users_related.users_review_words.infrastructure.UserReviewWordsService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +36,9 @@ public class UserActivityController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserLanguagesService userLanguagesService;
 
     @Autowired
     private UserReviewWordsService userReviewWordsService;
@@ -71,7 +75,8 @@ public class UserActivityController {
                     userActivity.setIdLesson(userActivityDto.getIdLesson());
                 }
             }
-
+            userActivity.setUserLanguages(
+                    userLanguagesService.getUserLanguagesById(userActivityDto.getUserLanguages().getIdUserLanguages()));
             userActivity.setXpGained(Constants.XP_GAINED_PER_ACTIVITY);
 
             userActivity.setResults(userActivityDto.getResults().stream()
