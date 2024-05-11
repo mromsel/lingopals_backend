@@ -3,6 +3,7 @@ package com.romsel.lingopals_backend.users_related.users_activity.domain;
 import java.time.ZonedDateTime;
 import java.util.List;
 
+import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
 import com.romsel.lingopals_backend.users_related.users.domain.User;
 import com.romsel.lingopals_backend.users_related.users_languages.domain.UserLanguages;
 
@@ -45,10 +46,11 @@ public class UserActivity {
     /**
      * NOTE: use Activity enum for this property
      * 
-     * @see com.romsel.lingopals_backend.domain.entities.elements.Activity;
+     * @see com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
      */
-    @Column(name = "activity_type", nullable = false)
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "activity_type", nullable = false)
+    private ActivityType activityType;
 
     @Column(name = "lesson", nullable = true)
     private Integer idLesson;
@@ -58,4 +60,5 @@ public class UserActivity {
 
     @Transient
     private List<ActivityResult> results;
+
 }

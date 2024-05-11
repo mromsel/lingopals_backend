@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopals_backend.common.Constants;
+import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeService;
 import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityResult;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivityException;
+import com.romsel.lingopals_backend.users_related.users_completed_lessons.infrastructure.UserCompletedLessonsService;
 import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
 import com.romsel.lingopals_backend.users_related.users_review_words.infrastructure.UserReviewWordsService;
 
@@ -43,6 +45,12 @@ public class UserActivityController {
     @Autowired
     private UserReviewWordsService userReviewWordsService;
 
+    @Autowired
+    private UserCompletedLessonsService userCompletedLessonsService;
+
+    @Autowired
+    private ActivityTypeService activityTypeService;
+
     @GetMapping("/users-activities")
     public List<UserActivityDto> getAllUsersActivities() {
         return userActivityService.getAllUsersActivities()
@@ -67,23 +75,23 @@ public class UserActivityController {
             userActivity.setUser(userService.getUserByID(userActivityDto.getIdUser()));
             userActivity.setDate(ZonedDateTime.now());
 
-            String activity = userActivityDto.getType();
-
-            if (checkIfActivityExist(activity)) {
-                userActivity.setType(activity);
-                if (activity.equals(ActivityEnum.LESSON.name())) {
-                    userActivity.setIdLesson(userActivityDto.getIdLesson());
-                }
-            }
             userActivity.setUserLanguages(
-                    userLanguagesService.getUserLanguagesById(userActivityDto.getUserLanguages().getIdUserLanguages()));
+                    userLanguagesService.getUserLanguagesById(userActivityDto.getUserLanguages().getId()));
             userActivity.setXpGained(Constants.XP_GAINED_PER_ACTIVITY);
 
             userActivity.setResults(userActivityDto.getResults().stream()
                     .map(resultDto -> modelMapper.map(resultDto, ActivityResult.class)).toList());
             this.userReviewWordsService.saveActivityResults(userActivity);
 
+            userActivity.setActivityType(activityTypeService.findByType(userActivityDto.getActivityType().getType()));
+
+            if (userActivity.getActivityType().getType().equals(ActivityEnum.LESSON.name())) {
+                userActivity.setIdLesson(userActivityDto.getIdLesson());
+                this.userCompletedLessonsService.save(userActivity);
+            }
+
             this.userActivityService.save(userActivity);
+
         } catch (Exception e) {
             throw new UserActivityException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
         }
