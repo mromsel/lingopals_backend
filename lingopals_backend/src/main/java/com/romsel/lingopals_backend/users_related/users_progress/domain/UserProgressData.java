@@ -2,6 +2,7 @@ package com.romsel.lingopals_backend.users_related.users_progress.domain;
 
 import java.time.ZonedDateTime;
 
+import com.romsel.lingopals_backend.masters.xp_levels.domain.XPLevel;
 import com.romsel.lingopals_backend.users_related.users.domain.User;
 
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -52,5 +54,9 @@ public class UserProgressData {
 
     @Column(name = "xp_points")
     private Long xpPoints;
+
+    @ManyToOne
+    @JoinColumn(name = "xp_level")
+    private XPLevel xpLevel;
 
 }

@@ -2,6 +2,7 @@ package com.romsel.lingopals_backend.users_related.users_progress.infrastructure
 
 import java.time.ZonedDateTime;
 
+import com.romsel.lingopals_backend.masters.xp_levels.infrastructure.XPLevelDto;
 import com.romsel.lingopals_backend.users_related.users.infrastructure.UserBasicDto;
 
 import lombok.Data;
@@ -20,5 +21,6 @@ public class UserProgressDataDto {
     private ZonedDateTime streakEndDate;
     private Integer maxStreak;
     private Long xpPoints;
+    private XPLevelDto xpLevel;
 
 }
