@@ -22,6 +22,6 @@ public class ActivityType {
     @Column(name = "id_activity_type")
     private Integer idActivityType;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", unique = true, nullable = false)
     private String type;
 }
