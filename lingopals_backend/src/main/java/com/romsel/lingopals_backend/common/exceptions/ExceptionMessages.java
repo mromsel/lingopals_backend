@@ -83,6 +83,11 @@ public class ExceptionMessages {
 
     // #endregion
 
+    public static final String XP_LEVEL_NOT_FOUND = "The xp level with that ID does not exist in the database";
+    public static final String XP_LEVEL_UPDATE_ERROR = "Error updating xp level";
+    public static final String XP_LEVEL_UPDATE_NOT_FOUND = "Error updating xp level because it does not exist in the database";
+    public static final String XP_LEVEL_DELETE_ERROR = "Error deleting xp level";
+
     // #region Auth Messages
 
     public static final String LOGIN_FAILED = "Username/email or password are incorrect";
