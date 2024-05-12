@@ -26,10 +26,10 @@ public class WordReferenceController {
     private WordReferenceService wordReferenceService;
 
     @GetMapping("word-references")
-    public List<WordReferenceDto> getAllWordReferences() {
+    public List<WordReferenceFullDto> getAllWordReferences() {
         return wordReferenceService.getAllWordReferences()
                 .stream()
-                .map(wordReference -> modelMapper.map(wordReference, WordReferenceDto.class))
+                .map(wordReference -> modelMapper.map(wordReference, WordReferenceFullDto.class))
                 .toList();
     }
 
