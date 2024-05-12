@@ -11,6 +11,7 @@ import com.romsel.lingopals_backend.words_related.words.infrastructure.WordServi
 @Service
 public class WordENService extends WordServiceImpl<WordEN, Long> {
 
+    @SuppressWarnings("unused")
     @Autowired
     private WordENRepository wordENRepository;
 

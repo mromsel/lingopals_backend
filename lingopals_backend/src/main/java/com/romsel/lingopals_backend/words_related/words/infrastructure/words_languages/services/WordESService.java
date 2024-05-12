@@ -11,6 +11,7 @@ import com.romsel.lingopals_backend.words_related.words.infrastructure.WordServi
 @Service
 public class WordESService extends WordServiceImpl<WordES, Long> {
 
+    @SuppressWarnings("unused")
     @Autowired
     private WordESRepository wordESRepository;
 

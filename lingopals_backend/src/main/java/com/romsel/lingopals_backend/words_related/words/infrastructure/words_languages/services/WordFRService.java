@@ -11,8 +11,9 @@ import com.romsel.lingopals_backend.words_related.words.infrastructure.WordServi
 @Service
 public class WordFRService extends WordServiceImpl<WordFR, Long> {
 
+    @SuppressWarnings("unused")
     @Autowired
-    private WordFRRepository wordFRRepository;;
+    private WordFRRepository wordFRRepository;
 
     public WordFRService(WordRepository<WordFR, Long> wordRepository) {
         super(wordRepository);
