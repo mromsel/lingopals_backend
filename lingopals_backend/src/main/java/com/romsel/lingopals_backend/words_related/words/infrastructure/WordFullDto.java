@@ -11,12 +11,8 @@ public class WordFullDto implements Comparable<WordFullDto> {
     private WordDto wordDto;
     private String romanization;
     private String pronunciation;
-    private Boolean changesOnGender;
-    private Boolean changesOnPlural;
     private String gramaticalCategory; // verb, sustantive, adjective
     private String gramaticalGender; // M, F, N
-    private String[] genderVariations; // "F actriz", "M actor"
-    private String[] numberVariations;
 
     @Override
     public int compareTo(WordFullDto o) {

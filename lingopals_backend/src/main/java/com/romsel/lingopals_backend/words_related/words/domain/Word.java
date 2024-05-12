@@ -47,22 +47,9 @@ public abstract class Word {
     @Column(name = "pronunciation")
     private String pronunciation;
 
-    @Column(name = "changes_on_gender")
-    private Boolean changesOnGender;
-
-    @Column(name = "changes_on_plural")
-    private Boolean changesOnPlural;
-
     @Column(name = "gramatical_category")
     private String gramaticalCategory; // verb, sustantive, adjective
 
     @Column(name = "gramatical_gender")
     private String gramaticalGender; // M, F, N
-
-    @Column(name = "gender_variations")
-    private String[] genderVariations; // "F actriz", "M actor"
-
-    @Column(name = "number_variations")
-    private String[] numberVariations; // "S árbol", "P árboles"
-
 }
