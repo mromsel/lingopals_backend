@@ -14,6 +14,7 @@ public class UserLanguagesDto {
 
     private Long id;
     private Long idUser;
+    private Boolean preferred;
     private LanguageDto languageTarget;
     private LanguageDto languageOrigin;
     private ZonedDateTime startDate;

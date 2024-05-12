@@ -40,10 +40,37 @@ public class UserLanguagesService {
 
     public void changePreferredUserLanguages(Long idUser, Long idUserLanguages) {
         try {
+            // Get the user
             User user = userService.getUserByID(idUser);
 
-            user.setPreferredUserLanguages(getUserLanguagesById(idUserLanguages));
-            userService.save(user);
+            // Get the current preferred UserLanguages
+            UserLanguages currentPreferred = user.getUserLanguages()
+                    .stream()
+                    .filter(UserLanguages::isPreferred)
+                    .findFirst()
+                    .orElse(null);
+
+            // Get the new UserLanguages to be set as preferred
+            UserLanguages newPreferred = user.getUserLanguages()
+                    .stream()
+                    .filter(ul -> ul.getId().equals(idUserLanguages))
+                    .findFirst()
+                    .orElseThrow(() -> new UserLanguagesException(HttpStatus.NOT_FOUND,
+                            List.of(ExceptionMessages.USER_LANGUAGES_NOT_FOUND)));
+
+            // If the new UserLanguages is different from the current one
+            if (currentPreferred == null || !currentPreferred.getId().equals(newPreferred.getId())) {
+                // If there is a current preferred UserLanguages, set its preferred status to
+                // false
+                if (currentPreferred != null) {
+                    currentPreferred.setPreferred(false);
+                    userLanguagesRepository.save(currentPreferred);
+                }
+
+                // Set the new UserLanguages as preferred
+                newPreferred.setPreferred(true);
+                userLanguagesRepository.save(newPreferred);
+            }
         } catch (UserException | UserLanguagesException e) {
             throw new UserLanguagesException(HttpStatus.NOT_FOUND, List.of(e.getMessage()));
         } catch (DataAccessException e2) {

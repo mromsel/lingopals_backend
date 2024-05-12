@@ -84,9 +84,8 @@ public class User {
     @ManyToMany
     private List<Profile> profiles;
 
-    @ManyToOne
-    @JoinColumn(name = "preferred_user_languages", nullable = true)
-    private UserLanguages preferredUserLanguages;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserLanguages> userLanguages;
 
     @OneToMany(mappedBy = "user1")
     private Set<UserRelationships> relationships = new HashSet<>();

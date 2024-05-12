@@ -1,5 +1,7 @@
 package com.romsel.lingopals_backend.users_related.users.infrastructure;
 
+import java.util.List;
+
 import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageDto;
 import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesDto;
 
@@ -16,7 +18,7 @@ public class UserBasicDto {
     private String email;
     private String profileImageUrl;
     private LanguageDto preferredLanguage;
-    private UserLanguagesDto preferredUserLanguages;
+    private List<UserLanguagesDto> userLanguages;
     private String timeZone;
 
 }
