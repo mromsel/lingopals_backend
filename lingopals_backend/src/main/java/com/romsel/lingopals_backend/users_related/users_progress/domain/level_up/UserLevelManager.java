@@ -20,6 +20,7 @@ public class UserLevelManager {
 
     public UserLevelUpdateDto addXP(Long idUser, Integer xpGained) {
         UserProgressData userProgress = userProgressDataService.getUserProgressByUserID(idUser);
+        XPLevel initialLevel = xpLevelService.findByLevel(userProgress.getXpLevel().getLevelNumber());
 
         Long initialXpPoints = userProgress.getXpPoints();
 
@@ -31,7 +32,6 @@ public class UserLevelManager {
         XPLevel newLevel = null;
 
         if (currentXpPoints > userProgress.getXpLevel().getXpRangeEnd()) {
-            System.out.println("Level up");
             isLevelUp = true;
             newLevel = xpLevelService.findByLevel(userProgress.getXpLevel().getLevelNumber() + 1);
             userProgress.setXpLevel(newLevel);
@@ -41,7 +41,8 @@ public class UserLevelManager {
 
         userProgressDataService.save(userProgress);
 
-        UserLevelUpdateDto userLevelUpdateDto = new UserLevelUpdateDto(initialXpPoints, xpGained, isLevelUp, newLevel);
+        UserLevelUpdateDto userLevelUpdateDto = new UserLevelUpdateDto(initialXpPoints,
+                initialLevel, xpGained, currentXpPoints, isLevelUp, newLevel);
         return userLevelUpdateDto;
     }
 }
