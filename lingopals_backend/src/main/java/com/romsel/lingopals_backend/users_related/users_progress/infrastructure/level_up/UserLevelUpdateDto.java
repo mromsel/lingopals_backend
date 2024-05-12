@@ -9,8 +9,10 @@ import lombok.Data;
 @AllArgsConstructor
 public class UserLevelUpdateDto {
 
-    private Long initialXP;
+    private Long initialXpPoints;
+    private XPLevel initialLevel;
     private Integer xpGained;
+    private Long finalXpPoints;
     private Boolean isLevelUp;
     private XPLevel newLevel;
 }
