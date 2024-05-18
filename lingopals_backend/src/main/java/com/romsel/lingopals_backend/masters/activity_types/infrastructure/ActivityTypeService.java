@@ -17,6 +17,10 @@ public class ActivityTypeService {
     @Autowired
     private ActivityTypeRepository activityTypeRepository;
 
+    public List<ActivityType> findAll() {
+        return (List<ActivityType>) activityTypeRepository.findAll();
+    }
+
     public ActivityType findById(Integer id) {
         return activityTypeRepository.findById(id)
                 .orElseThrow(() -> new ActivityTypeException(HttpStatus.NOT_FOUND,

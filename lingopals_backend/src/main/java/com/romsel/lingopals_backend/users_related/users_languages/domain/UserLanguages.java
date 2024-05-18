@@ -18,9 +18,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * @see com.romsel.lingopals_backend.users_related.users_languages.domain.UserLanguagesIdClass
- */
 @Entity
 @Table(name = "users_languages")
 @Data
@@ -30,12 +27,15 @@ public class UserLanguages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_user_languages")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
+
+    @Column(name = "preferred")
+    private boolean preferred;
 
     @ManyToOne
     @JoinColumn(name = "language_target")

@@ -47,9 +47,6 @@ public abstract class Word {
     @Column(name = "pronunciation")
     private String pronunciation;
 
-    @Column(name = "gramatical_category")
-    private String gramaticalCategory; // verb, sustantive, adjective
-
     @Column(name = "gramatical_gender")
     private String gramaticalGender; // M, F, N
 }

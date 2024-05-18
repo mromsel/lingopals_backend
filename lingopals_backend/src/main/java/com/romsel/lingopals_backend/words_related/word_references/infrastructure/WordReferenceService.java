@@ -30,4 +30,8 @@ public class WordReferenceService {
         return (List<WordReference>) wordReferenceRepository.findAllById(idWordRefs);
     }
 
+    public WordReference save(WordReference wordReference) {
+        return wordReferenceRepository.save(wordReference);
+    }
+
 }

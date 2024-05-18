@@ -2,6 +2,7 @@ package com.romsel.lingopals_backend.words_related.word_references.domain;
 
 import java.util.List;
 
+import com.romsel.lingopals_backend.masters.grammatical_categories.domain.GrammaticalCategory;
 import com.romsel.lingopals_backend.masters.language_levels.domain.LanguageLevel;
 import com.romsel.lingopals_backend.words_related.categories.domain.Category;
 import com.romsel.lingopals_backend.words_related.lessons.domain.Lesson;
@@ -28,23 +29,31 @@ import lombok.NoArgsConstructor;
 public class WordReference {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id_word_ref", insertable = false)
     private Long idWordRef;
 
     @Column(name = "english_word")
     private String englishWord;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    @Column(name = "english_definition")
+    private String englishDefinition;
+
+    @JoinColumn(name = "grammatical_category")
+    @ManyToOne(targetEntity = GrammaticalCategory.class, optional = false, fetch = FetchType.LAZY)
+    private GrammaticalCategory grammaticalCategory;
 
     @JoinColumn(name = "language_level")
     @ManyToOne(targetEntity = LanguageLevel.class, optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;
 
-    @JoinColumn(name = "category")
-    @ManyToOne(targetEntity = Category.class, optional = true, fetch = FetchType.LAZY)
-    private Category category;
+    // @JoinColumn(name = "category")
+    // @ManyToOne(targetEntity = Category.class, optional = true, fetch =
+    // FetchType.LAZY)
+    // private Category category;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @ManyToMany(mappedBy = "listWordsReferences")
     private List<Lesson> lessons;

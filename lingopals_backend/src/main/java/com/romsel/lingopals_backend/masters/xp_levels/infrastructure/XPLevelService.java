@@ -17,6 +17,10 @@ public class XPLevelService {
     @Autowired
     private XPLevelRepository xpLevelRepository;
 
+    public List<XPLevel> findAll() {
+        return (List<XPLevel>) xpLevelRepository.findAll();
+    }
+
     public XPLevel findByLevel(Integer level) {
         return xpLevelRepository.findById(level)
                 .orElseThrow(() -> new XPLevelException(HttpStatus.NOT_FOUND,
