@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReferenceException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api")
@@ -46,6 +48,16 @@ public class WordReferenceController {
         WordReferenceDto wordReferenceDto = modelMapper.map(wordReference, WordReferenceDto.class);
 
         return new ResponseEntity<>(wordReferenceDto, HttpStatus.OK);
+    }
+
+    @PostMapping("word-references")
+    public ResponseEntity<?> create(@RequestBody WordReferenceFullDto wordReferenceDto) {
+
+        wordReferenceDto.setIdWordRef(null);
+        // wordReferenceDto.setCategory(null);
+        WordReference wordReference = wordReferenceService.save(modelMapper.map(wordReferenceDto, WordReference.class));
+
+        return new ResponseEntity<>(modelMapper.map(wordReference, WordReferenceFullDto.class), HttpStatus.OK);
     }
 
 }

@@ -29,7 +29,7 @@ import lombok.NoArgsConstructor;
 public class WordReference {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id_word_ref", insertable = false)
     private Long idWordRef;
 
@@ -47,9 +47,10 @@ public class WordReference {
     @ManyToOne(targetEntity = LanguageLevel.class, optional = false, fetch = FetchType.LAZY)
     private LanguageLevel languageLevel;
 
-    @JoinColumn(name = "category")
-    @ManyToOne(targetEntity = Category.class, optional = true, fetch = FetchType.LAZY)
-    private Category category;
+    // @JoinColumn(name = "category")
+    // @ManyToOne(targetEntity = Category.class, optional = true, fetch =
+    // FetchType.LAZY)
+    // private Category category;
 
     @Column(name = "image_url")
     private String imageUrl;
