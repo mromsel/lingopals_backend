@@ -53,13 +53,14 @@ public class UserLanguagesService {
             // Get the new UserLanguages to be set as preferred
             UserLanguages newPreferred = user.getUserLanguages()
                     .stream()
-                    .filter(ul -> ul.getId().equals(idUserLanguages))
+                    .filter(ul -> ul.getIdUserLanguages().equals(idUserLanguages))
                     .findFirst()
                     .orElseThrow(() -> new UserLanguagesException(HttpStatus.NOT_FOUND,
                             List.of(ExceptionMessages.USER_LANGUAGES_NOT_FOUND)));
 
             // If the new UserLanguages is different from the current one
-            if (currentPreferred == null || !currentPreferred.getId().equals(newPreferred.getId())) {
+            if (currentPreferred == null
+                    || !currentPreferred.getIdUserLanguages().equals(newPreferred.getIdUserLanguages())) {
                 // If there is a current preferred UserLanguages, set its preferred status to
                 // false
                 if (currentPreferred != null) {

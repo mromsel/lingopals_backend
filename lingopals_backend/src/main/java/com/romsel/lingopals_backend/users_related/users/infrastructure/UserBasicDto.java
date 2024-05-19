@@ -18,7 +18,6 @@ public class UserBasicDto {
     private String email;
     private String profileImageUrl;
     private LanguageDto preferredLanguage;
-    private List<UserLanguagesDto> userLanguages;
     private String timeZone;
 
 }

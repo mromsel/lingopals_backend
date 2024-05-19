@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.romsel.lingopals_backend.common.Constants;
-import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeService;
+import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
+import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityTypeException;
 import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityResult;
@@ -51,9 +52,6 @@ public class UserActivityController {
     private UserCompletedLessonsService userCompletedLessonsService;
 
     @Autowired
-    private ActivityTypeService activityTypeService;
-
-    @Autowired
     private UserLevelManager userLevelManager;
 
     @GetMapping("/users-activities")
@@ -73,7 +71,7 @@ public class UserActivityController {
     }
 
     @PostMapping("/users-activities")
-    public ResponseEntity<?> create(@RequestBody UserActivityDto userActivityDto) {
+    public ResponseEntity<UserLevelUpdateDto> create(@RequestBody UserActivityDto userActivityDto) {
         UserActivity userActivity = new UserActivity();
 
         UserLevelUpdateDto userLevelUpdateDto = null;
@@ -82,19 +80,16 @@ public class UserActivityController {
             userActivity.setDate(ZonedDateTime.now());
 
             userActivity.setUserLanguages(
-                    userLanguagesService.getUserLanguagesById(userActivityDto.getUserLanguages().getId()));
+                    userLanguagesService.getUserLanguagesById(userActivityDto.getUserLanguages().getIdUserLanguages()));
             userActivity.setXpGained(Constants.XP_GAINED_PER_ACTIVITY);
 
-            userActivity.setResults(userActivityDto.getResults().stream()
-                    .map(resultDto -> modelMapper.map(resultDto, ActivityResult.class)).toList());
-            this.userReviewWordsService.saveActivityResults(userActivity);
-
-            userActivity.setActivityType(activityTypeService.findByType(userActivityDto.getActivityType().getType()));
+            userActivity.setActivityType(modelMapper.map(userActivityDto.getActivityType(), ActivityType.class));
 
             if (userActivity.getActivityType().getType().equals(ActivityEnum.LESSON.name())) {
                 /*
-                 * In lesson add the id and
-                 * add to completed lessons
+                 * When the activity is a lesson add the id to the object
+                 * that will persist in the database and save it in completed
+                 * lessons if it's the first time taking this lesson
                  */
                 userActivity.setIdLesson(userActivityDto.getIdLesson());
                 this.userCompletedLessonsService.save(userActivity);
@@ -105,8 +100,18 @@ public class UserActivityController {
             userActivity.setXpGained(50);
 
             // Save activity
-            this.userActivityService.save(userActivity);
+            UserActivity createdUserActivity = this.userActivityService.save(userActivity);
 
+            // Save activity results in review words
+            createdUserActivity.setResults(userActivityDto.getResults().stream()
+                    .map(resultDto -> modelMapper.map(resultDto,
+                            ActivityResult.class))
+                    .toList());
+            this.userReviewWordsService.saveActivityResults(createdUserActivity);
+
+        } catch (ActivityTypeException activityTypeException) {
+            throw new ActivityTypeException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    List.of(activityTypeException.getMessage()));
         } catch (Exception e) {
             throw new UserActivityException(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
         }

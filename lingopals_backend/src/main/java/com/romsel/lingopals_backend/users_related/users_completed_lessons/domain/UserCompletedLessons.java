@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class UserCompletedLessons {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "id_user_completed_lesson")
     private Long idCompletedLesson;
 
