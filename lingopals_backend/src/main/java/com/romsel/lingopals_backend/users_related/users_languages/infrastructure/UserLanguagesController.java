@@ -45,7 +45,13 @@ public class UserLanguagesController {
         this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getIdUser(),
                 userLanguagesDto.getId());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<UserLanguagesDto> response = this.userLanguagesService
+                .getUserLanguagesByUserID(userLanguagesDto.getIdUser())
+                .stream()
+                .map(userLanguages -> modelMapper.map(userLanguages, UserLanguagesDto.class))
+                .toList();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }
