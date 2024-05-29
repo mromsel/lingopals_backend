@@ -44,13 +44,14 @@ public class UserReviewWordsController {
         private WordServiceFactory wordServiceFactory;
 
         @SuppressWarnings("unchecked")
-        @GetMapping("/review-words/{idUser}/{isoLangOrigin}/{isoLangTarget}")
-        public ResponseEntity<?> getTop5ReviewWords(@PathVariable Long idUser, @PathVariable String isoLangOrigin,
+        @GetMapping("/review-words/{idUserLanguages}/{isoLangOrigin}/{isoLangTarget}")
+        public ResponseEntity<?> getTop5ReviewWords(@PathVariable Long idUserLanguages,
+                        @PathVariable String isoLangOrigin,
                         @PathVariable String isoLangTarget) {
                 UserReviewWordsDto userReviewWordsDto = new UserReviewWordsDto();
 
                 // TODO: TRY-CATCH DATA ACCESS
-                List<UserReviewWords> listUserReviewWords = userReviewWordsService.findTop5ByUser(idUser);
+                List<UserReviewWords> listUserReviewWords = userReviewWordsService.findTop5ByUser(idUserLanguages);
 
                 WordService<Word, Long> wordServiceOrigin;
                 WordService<Word, Long> wordServiceTarget;

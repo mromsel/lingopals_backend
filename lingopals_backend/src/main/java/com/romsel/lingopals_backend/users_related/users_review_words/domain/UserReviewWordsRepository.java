@@ -9,12 +9,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserReviewWordsRepository extends CrudRepository<UserReviewWords, UserReviewWordsIdClass> {
 
-    List<UserReviewWords> findByIdUser(Long idUser);
+    List<UserReviewWords> findByIdUserLanguages(Long idUserLanguages);
 
-    List<UserReviewWords> findByIdUserAndIdWordReferenceIn(Long idUser, List<Long> idsWordReferences);
+    List<UserReviewWords> findByIdUserLanguagesAndIdWordReferenceIn(Long idUserLanguages, List<Long> idsWordReferences);
 
     @Query("SELECT urw FROM UserReviewWords urw " +
-            "WHERE urw.idUser = :idUser " +
+            "WHERE urw.idUserLanguages = :idUserLanguages " +
             "ORDER BY urw.difficulty, urw.lastReviewDate DESC")
-    List<UserReviewWords> findByIdUserOrderByDifficultyAscDateDesc(Long idUser);
+    List<UserReviewWords> findByIdUserLanguagesOrderByDifficultyAscDateDesc(Long idUserLanguages);
 }
