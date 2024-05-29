@@ -19,6 +19,7 @@ import com.romsel.lingopals_backend.auth.infrastructure.UserLoginDto;
 import com.romsel.lingopals_backend.auth.infrastructure.UserSignUpDto;
 import com.romsel.lingopals_backend.common.exceptions.ExceptionMessages;
 import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageService;
+import com.romsel.lingopals_backend.masters.xp_levels.infrastructure.XPLevelService;
 import com.romsel.lingopals_backend.users_related.users.domain.User;
 import com.romsel.lingopals_backend.users_related.users.domain.UserException;
 import com.romsel.lingopals_backend.users_related.users_progress.domain.UserProgressData;
@@ -45,6 +46,9 @@ public class UserController {
 
     @Autowired
     private LanguageService languageService;
+
+    @Autowired
+    private XPLevelService xpLevelService;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -98,6 +102,8 @@ public class UserController {
             userProgressData.setCurrentStreak(0);
             userProgressData.setMaxStreak(0);
             userProgressData.setUser(userCreated);
+            userProgressData.setXpPoints(0L);
+            userProgressData.setXpLevel(xpLevelService.findByLevel(1));
 
             userProgressDataCreated = userProgressDataService.save(userProgressData);
 

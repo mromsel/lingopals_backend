@@ -52,17 +52,16 @@ public class UserCompletedLessonsService {
                             lesson,
                             (userActivity.getUser()));
 
-            if (existingUserCompletedLessons != null) {
+            if (existingUserCompletedLessons == null) {
                 UserCompletedLessons newUserCompletedLessons = new UserCompletedLessons();
+                newUserCompletedLessons.setUser(userActivity.getUser());
                 newUserCompletedLessons.setLesson(lesson);
+                newUserCompletedLessons.setIdUserLanguages(userActivity.getUserLanguages().getIdUserLanguages());
                 newUserCompletedLessons
                         .setCompletionDate(ZonedDateTime.now(ZoneId.of(userActivity.getUser().getTimeZone())));
-                this.userCompletedLessonsRepository.save(newUserCompletedLessons);
+                return this.userCompletedLessonsRepository.save(newUserCompletedLessons);
             }
-
         }
-
         return null;
     }
-
 }

@@ -42,10 +42,16 @@ public class UserLanguagesController {
     @PostMapping("/users-languages/change-preferred")
     public ResponseEntity<?> changePreferredUserLanguages(@RequestBody UserLanguagesDto userLanguagesDto) {
 
-        this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getIdUser(),
-                userLanguagesDto.getId());
+        this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getUser().getIdUser(),
+                userLanguagesDto.getIdUserLanguages());
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<UserLanguagesDto> response = this.userLanguagesService
+                .getUserLanguagesByUserID(userLanguagesDto.getUser().getIdUser())
+                .stream()
+                .map(userLanguages -> modelMapper.map(userLanguages, UserLanguagesDto.class))
+                .toList();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 }

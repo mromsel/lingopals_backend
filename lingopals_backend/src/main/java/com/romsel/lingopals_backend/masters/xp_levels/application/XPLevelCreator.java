@@ -19,7 +19,7 @@ public class XPLevelCreator {
     public List<XPLevel> fillXPLevels() {
 
         int startXP = 0;
-        int endXP = 100; // Cambia este valor según tu necesidad
+        int endXP = 100;
 
         for (int level = 1; level <= MAX_LEVEL; level++) {
             XPLevel xpLevel = new XPLevel();
