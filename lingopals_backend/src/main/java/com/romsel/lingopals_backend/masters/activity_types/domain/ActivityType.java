@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class ActivityType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "id_activity_type")
     private Integer idActivityType;
 

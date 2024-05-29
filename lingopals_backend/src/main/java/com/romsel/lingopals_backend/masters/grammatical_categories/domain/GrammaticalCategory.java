@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class GrammaticalCategory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id_grammatical_category")
     private Integer idGrammaticalCategory;
 
