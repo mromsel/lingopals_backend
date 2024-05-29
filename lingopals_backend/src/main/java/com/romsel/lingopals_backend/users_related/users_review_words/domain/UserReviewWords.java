@@ -20,10 +20,6 @@ import lombok.NoArgsConstructor;
 public class UserReviewWords {
 
     @Id
-    @Column(name = "id_user", nullable = false, updatable = false)
-    private Long idUser;
-
-    @Id
     @Column(name = "id_word_ref", nullable = false, updatable = false)
     private Long idWordReference;
 

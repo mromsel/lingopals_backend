@@ -45,4 +45,7 @@ public class Lesson {
     @Transient
     private ActivityType activityType;
 
+    @Transient
+    private Boolean isCompleted;
+
 }

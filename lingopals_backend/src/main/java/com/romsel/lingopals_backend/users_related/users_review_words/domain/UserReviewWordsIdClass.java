@@ -12,7 +12,6 @@ public class UserReviewWordsIdClass implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long idUser;
     private Long idWordReference;
     private Long idUserLanguages;
 }
