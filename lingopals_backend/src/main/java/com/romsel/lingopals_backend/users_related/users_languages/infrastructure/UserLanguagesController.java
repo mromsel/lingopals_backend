@@ -17,42 +17,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api")
 public class UserLanguagesController {
 
-    @Autowired
-    private ModelMapper modelMapper;
+        @Autowired
+        private ModelMapper modelMapper;
 
-    @Autowired
-    private UserLanguagesService userLanguagesService;
+        @Autowired
+        private UserLanguagesService userLanguagesService;
 
-    @GetMapping("/users-languages")
-    public List<UserLanguagesDto> getAllUserLanguages() {
-        return userLanguagesService.getAllUserLanguages()
-                .stream()
-                .map(userLanguage -> modelMapper.map(userLanguage, UserLanguagesDto.class))
-                .toList();
-    }
+        @GetMapping("/users-languages")
+        public List<UserLanguagesDto> getAllUserLanguages() {
+                return userLanguagesService.getAllUserLanguages()
+                                .stream()
+                                .map(userLanguage -> modelMapper.map(userLanguage, UserLanguagesDto.class))
+                                .toList();
+        }
 
-    @GetMapping("/users-languages/{idUser}")
-    public List<UserLanguagesDto> getUserLanguages(@PathVariable Long idUser) {
-        return userLanguagesService.getUserLanguagesByUserID(idUser)
-                .stream()
-                .map(userLanguage -> modelMapper.map(userLanguage, UserLanguagesDto.class))
-                .toList();
-    }
+        @GetMapping("/users-languages/{idUser}")
+        public List<UserLanguagesDto> getUserLanguages(@PathVariable Long idUser) {
+                return userLanguagesService.getUserLanguagesByUserID(idUser)
+                                .stream()
+                                .map(userLanguage -> modelMapper.map(userLanguage, UserLanguagesDto.class))
+                                .toList();
+        }
 
-    @PostMapping("/users-languages/change-preferred")
-    public ResponseEntity<List<UserLanguagesDto>> changePreferredUserLanguages(
-            @RequestBody UserLanguagesDto userLanguagesDto) {
+        @PostMapping("/users-languages/change-preferred")
+        public ResponseEntity<List<UserLanguagesDto>> changePreferredUserLanguages(
+                        @RequestBody UserLanguagesDto userLanguagesDto) {
 
-        this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getUser().getIdUser(),
-                userLanguagesDto.getIdUserLanguages());
+                this.userLanguagesService.changePreferredUserLanguages(userLanguagesDto.getIdUser(),
+                                userLanguagesDto.getIdUserLanguages());
 
-        List<UserLanguagesDto> response = this.userLanguagesService
-                .getUserLanguagesByUserID(userLanguagesDto.getUser().getIdUser())
-                .stream()
-                .map(userLanguages -> modelMapper.map(userLanguages, UserLanguagesDto.class))
-                .toList();
+                List<UserLanguagesDto> response = this.userLanguagesService
+                                .getUserLanguagesByUserID(userLanguagesDto.getIdUser())
+                                .stream()
+                                .map(userLanguages -> modelMapper.map(userLanguages, UserLanguagesDto.class))
+                                .toList();
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
+                return new ResponseEntity<>(response, HttpStatus.OK);
+        }
 
 }
