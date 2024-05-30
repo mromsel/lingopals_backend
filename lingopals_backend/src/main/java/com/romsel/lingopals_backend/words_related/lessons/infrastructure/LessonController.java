@@ -3,18 +3,17 @@ package com.romsel.lingopals_backend.words_related.lessons.infrastructure;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.romsel.lingopals_backend.common.Constants;
 import com.romsel.lingopals_backend.common.exceptions.ExceptionMessages;
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeService;
 import com.romsel.lingopals_backend.masters.languages.domain.LanguageException;
-import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
 import com.romsel.lingopals_backend.words_related.lessons.domain.Lesson;
 import com.romsel.lingopals_backend.words_related.lessons.domain.LessonException;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
@@ -30,17 +29,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api")
 public class LessonController {
 
-        @Autowired
         private ModelMapper modelMapper;
 
-        @Autowired
         private LessonService lessonService;
 
-        @Autowired
         private ActivityTypeService activityTypeService;
 
-        @Autowired
         private WordServiceFactory wordServiceFactory;
+
+        public LessonController(ModelMapper modelMapper, LessonService lessonService,
+                        ActivityTypeService activityTypeService, WordServiceFactory wordServiceFactory) {
+                this.modelMapper = modelMapper;
+                this.lessonService = lessonService;
+                this.activityTypeService = activityTypeService;
+                this.wordServiceFactory = wordServiceFactory;
+        }
 
         @GetMapping("/lessons")
         public List<LessonDto> getAllLessons() {
@@ -108,7 +111,7 @@ public class LessonController {
                                 .toList();
                 lessonFullDto.setWordsList(list);
                 lessonFullDto.setActivityType(modelMapper.map(
-                                activityTypeService.findByType(ActivityEnum.LESSON.name()), ActivityTypeDto.class));
+                                activityTypeService.findByType(Constants.ACTIVITY_TYPE_LESSON), ActivityTypeDto.class));
 
                 return new ResponseEntity<>(lessonFullDto, HttpStatus.OK);
         }
