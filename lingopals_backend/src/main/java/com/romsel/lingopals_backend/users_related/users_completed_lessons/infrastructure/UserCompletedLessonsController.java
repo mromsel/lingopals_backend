@@ -27,13 +27,11 @@ public class UserCompletedLessonsController {
                 .toList();
     }
 
-    @GetMapping("/users-lessons/{idUser}")
-    public List<UserCompletedLessonsDto> getAllUserLessonsByUserID(@PathVariable Long idUser) {
-        return userCompletedLessonsService.getAllUserLessonsByUserID(idUser)
+    @GetMapping("/users-lessons/{idUserLanguages}")
+    public List<UserCompletedLessonsDto> getAllUserLessonsByUserID(@PathVariable Long idUserLanguages) {
+        return userCompletedLessonsService.getAllUserLessonsByIdUserLanguages(idUserLanguages)
                 .stream()
                 .map(userCompletedLessons -> modelMapper.map(userCompletedLessons, UserCompletedLessonsDto.class))
                 .toList();
-
     }
-
 }

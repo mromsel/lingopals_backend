@@ -2,9 +2,6 @@ package com.romsel.lingopals_backend.users_related.users_completed_lessons.infra
 
 import java.time.ZonedDateTime;
 
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserBasicDto;
-import com.romsel.lingopals_backend.words_related.lessons.domain.Lesson;
-
 import lombok.Data;
 
 /**
@@ -14,9 +11,10 @@ import lombok.Data;
 public class UserCompletedLessonsDto {
 
     private Long idCompletedLesson;
-    private UserBasicDto user;
     private Long idUserLanguages;
-    private Lesson lesson;
+    private Integer idLesson;
+    private ZonedDateTime startDate;
     private ZonedDateTime completionDate;
+    private Double progressPercent;
 
 }

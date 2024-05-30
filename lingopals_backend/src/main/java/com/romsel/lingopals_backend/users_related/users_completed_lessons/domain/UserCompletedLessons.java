@@ -42,4 +42,7 @@ public class UserCompletedLessons {
     @Column(name = "completion_date")
     private ZonedDateTime completionDate;
 
+    @Column(name = "progress_percent")
+    private Double progressPercent;
+
 }
