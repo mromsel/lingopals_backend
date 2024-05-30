@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityResult;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
 import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
@@ -30,6 +29,12 @@ public class UserReviewWordsService {
     public List<UserReviewWords> findAllByUserLanguages(Long idUserLanguages) {
         this.userLanguagesService.getUserLanguagesById(idUserLanguages);
         return this.userReviewWordsRepository.findByIdUserLanguages(idUserLanguages);
+    }
+
+    public List<UserReviewWords> findByIdUserLanguagesAndIdWordReferenceIn(Long idUserLanguages,
+            List<Long> listIdWordReferences) {
+        return this.userReviewWordsRepository.findByIdUserLanguagesAndIdWordReferenceIn(idUserLanguages,
+                listIdWordReferences);
     }
 
     public UserReviewWords save(UserReviewWords userReviewWords) {
