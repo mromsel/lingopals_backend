@@ -14,4 +14,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
             "WHERE u.username = :userNameOrEmail " +
             "OR u.email = :userNameOrEmail")
     Optional<User> findByUsernameOrEmail(String userNameOrEmail);
+
+    Optional<User> findByUsername(String username);
 }
