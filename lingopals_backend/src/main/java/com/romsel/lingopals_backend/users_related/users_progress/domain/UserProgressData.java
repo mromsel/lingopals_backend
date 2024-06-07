@@ -8,14 +8,13 @@ import com.romsel.lingopals_backend.users_related.users.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -25,10 +24,10 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserProgressData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_user_progress_data", nullable = false, updatable = false)
     private Long idUserProgressData;
 
@@ -49,7 +48,7 @@ public class UserProgressData {
     @Column(name = "streak_end_date")
     private ZonedDateTime streakEndDate;
 
-    @Column(name = "max_streak") // al iniciar por defecto es 0
+    @Column(name = "max_streak")
     private Integer maxStreak;
 
     @Column(name = "xp_points")

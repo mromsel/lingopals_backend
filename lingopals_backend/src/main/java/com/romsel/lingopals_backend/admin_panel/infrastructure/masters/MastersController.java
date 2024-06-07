@@ -16,7 +16,7 @@ public class MastersController {
     @Autowired
     private MastersService mastersService;
 
-    @GetMapping("/admin-panel/masters")
+    @GetMapping("/masters")
     public MastersDto getAllMasters() {
         return modelMapper.map(mastersService.getAllMasters(), MastersDto.class);
     }

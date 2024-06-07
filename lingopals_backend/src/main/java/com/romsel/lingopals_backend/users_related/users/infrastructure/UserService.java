@@ -27,10 +27,17 @@ public class UserService {
                         () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
     }
 
-    public User getUserByNameOrEmail(String usernameOrEmail) {
-        return userRepository.findByUsernameOrEmail(usernameOrEmail)
-                .orElseThrow(
-                        () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(
+                () -> new UserException(HttpStatus.NOT_FOUND, List.of(ExceptionMessages.USER_NOT_FOUND)));
+    }
+
+    public List<User> getUsersByNameOrEmail(String username, String email) {
+        return userRepository.findByUsernameOrEmail(username, email);
+    }
+
+    public Long getIdUserByUsername(String username) {
+        return userRepository.findIdUserByUsername(username);
     }
 
     public User save(User user) {
