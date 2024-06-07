@@ -3,7 +3,6 @@ package com.romsel.lingopals_backend.masters.activity_types.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class ActivityType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     @Column(name = "id_activity_type")
     private Integer idActivityType;
 

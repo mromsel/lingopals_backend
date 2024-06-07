@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
 import com.romsel.lingopals_backend.masters.language_levels.domain.LanguageLevel;
+import com.romsel.lingopals_backend.users_related.users_completed_lessons.domain.UserCompletedLessons;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
 
 import jakarta.persistence.Column;
@@ -44,5 +45,11 @@ public class Lesson {
 
     @Transient
     private ActivityType activityType;
+
+    @Transient
+    private Boolean isCompleted;
+
+    @Transient
+    private UserCompletedLessons userCompletedLesson;
 
 }

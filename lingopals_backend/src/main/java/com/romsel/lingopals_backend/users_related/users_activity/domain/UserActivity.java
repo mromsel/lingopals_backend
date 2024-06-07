@@ -33,21 +33,12 @@ public class UserActivity {
     private Long idUserActivity;
 
     @ManyToOne
-    @JoinColumn(name = "id_user", nullable = false)
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "id_user_languages", nullable = false)
     private UserLanguages userLanguages;
 
     @Column(name = "activity_date", nullable = false)
     private ZonedDateTime date;
 
-    /**
-     * NOTE: use Activity enum for this property
-     * 
-     * @see com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
-     */
     @ManyToOne
     @JoinColumn(name = "activity_type", nullable = false)
     private ActivityType activityType;

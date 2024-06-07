@@ -9,12 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.romsel.lingopals_backend.common.Constants;
 import com.romsel.lingopals_backend.common.exceptions.ExceptionMessages;
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeService;
 import com.romsel.lingopals_backend.masters.languages.domain.LanguageException;
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
-import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityEnum;
 import com.romsel.lingopals_backend.users_related.users_review_words.domain.UserReviewWords;
 import com.romsel.lingopals_backend.words_related.words.application.WordService;
 import com.romsel.lingopals_backend.words_related.words.application.WordServiceFactory;
@@ -35,22 +34,20 @@ public class UserReviewWordsController {
         private UserReviewWordsService userReviewWordsService;
 
         @Autowired
-        private UserService userService;
-
-        @Autowired
         private ActivityTypeService activityTypeService;
 
         @Autowired
         private WordServiceFactory wordServiceFactory;
 
         @SuppressWarnings("unchecked")
-        @GetMapping("/review-words/{idUser}/{isoLangOrigin}/{isoLangTarget}")
-        public ResponseEntity<?> getTop5ReviewWords(@PathVariable Long idUser, @PathVariable String isoLangOrigin,
+        @GetMapping("/review-words/{idUserLanguages}/{isoLangOrigin}/{isoLangTarget}")
+        public ResponseEntity<?> getTop5ReviewWords(@PathVariable Long idUserLanguages,
+                        @PathVariable String isoLangOrigin,
                         @PathVariable String isoLangTarget) {
                 UserReviewWordsDto userReviewWordsDto = new UserReviewWordsDto();
 
                 // TODO: TRY-CATCH DATA ACCESS
-                List<UserReviewWords> listUserReviewWords = userReviewWordsService.findTop5ByUser(idUser);
+                List<UserReviewWords> listUserReviewWords = userReviewWordsService.findTop5ByUser(idUserLanguages);
 
                 WordService<Word, Long> wordServiceOrigin;
                 WordService<Word, Long> wordServiceTarget;
@@ -97,10 +94,9 @@ public class UserReviewWordsController {
                                         return newWordsInReviewDto;
                                 })
                                 .toList();
-                // userReviewWordsDto.setLanguageLevel();
                 userReviewWordsDto.setWordsList(list);
                 userReviewWordsDto.setActivityType(modelMapper.map(
-                                activityTypeService.findByType(ActivityEnum.REVIEW.name()), ActivityTypeDto.class));
+                                activityTypeService.findByType(Constants.ACTIVITY_TYPE_REVIEW), ActivityTypeDto.class));
 
                 return new ResponseEntity<>(userReviewWordsDto, HttpStatus.OK);
         }

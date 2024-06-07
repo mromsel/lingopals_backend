@@ -4,7 +4,6 @@ import java.time.ZonedDateTime;
 
 import com.romsel.lingopals_backend.masters.language_levels.infrastructure.LanguageLevelDto;
 import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageDto;
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserMinimalDto;
 
 import lombok.Data;
 
@@ -15,7 +14,7 @@ import lombok.Data;
 public class UserLanguagesDto {
 
     private Long idUserLanguages;
-    private UserMinimalDto user;
+    private Long idUser;
     private Boolean preferred;
     private LanguageDto languageTarget;
     private LanguageDto languageOrigin;

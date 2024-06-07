@@ -1,6 +1,6 @@
 package com.romsel.lingopals_backend.admin_panel.infrastructure.words_related;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.romsel.lingopals_backend.admin_panel.domain.words_related.WordsRelated;
@@ -11,14 +11,18 @@ import com.romsel.lingopals_backend.words_related.word_references.infrastructure
 @Service
 public class WordsRelatedService {
 
-    @Autowired
     private CategoryService categoryService;
 
-    @Autowired
     private LessonService lessonService;
 
-    @Autowired
     private WordReferenceService wordReferenceService;
+
+    public WordsRelatedService(CategoryService categoryService, @Lazy LessonService lessonService,
+            WordReferenceService wordReferenceService) {
+        this.categoryService = categoryService;
+        this.lessonService = lessonService;
+        this.wordReferenceService = wordReferenceService;
+    }
 
     public WordsRelated getWordsRelated() {
         WordsRelated response = new WordsRelated();

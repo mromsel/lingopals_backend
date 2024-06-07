@@ -7,27 +7,34 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.ActivityResult;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
+import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
 import com.romsel.lingopals_backend.users_related.users_review_words.domain.UserReviewWords;
 import com.romsel.lingopals_backend.users_related.users_review_words.domain.UserReviewWordsRepository;
 
 @Service
 public class UserReviewWordsService {
 
-    private UserService usersService;
-
     private UserReviewWordsRepository userReviewWordsRepository;
 
-    public UserReviewWordsService(UserService usersService, UserReviewWordsRepository userReviewWordsRepository) {
-        this.usersService = usersService;
+    private UserLanguagesService userLanguagesService;
+
+    public UserReviewWordsService(UserReviewWordsRepository userReviewWordsRepository,
+            UserLanguagesService userLanguagesService) {
         this.userReviewWordsRepository = userReviewWordsRepository;
+        this.userLanguagesService = userLanguagesService;
     }
 
-    public List<UserReviewWords> findAllByUser(Long idUser) {
-        this.usersService.getUserByID(idUser); // THROWS EXCEPTION IF USER IS NOT FOUND
-        return this.userReviewWordsRepository.findByIdUser(idUser);
+    public List<UserReviewWords> findAllByUserLanguages(Long idUserLanguages) {
+        this.userLanguagesService.getUserLanguagesById(idUserLanguages);
+        return this.userReviewWordsRepository.findByIdUserLanguages(idUserLanguages);
+    }
+
+    public List<UserReviewWords> findByIdUserLanguagesAndIdWordReferenceIn(Long idUserLanguages,
+            List<Long> listIdWordReferences) {
+        return this.userReviewWordsRepository.findByIdUserLanguagesAndIdWordReferenceIn(idUserLanguages,
+                listIdWordReferences);
     }
 
     public UserReviewWords save(UserReviewWords userReviewWords) {
@@ -42,10 +49,11 @@ public class UserReviewWordsService {
         if (userActivity.getResults() != null && !userActivity.getResults().isEmpty()) {
             List<ActivityResult> results = userActivity.getResults();
 
-            Long idUser = userActivity.getUser().getIdUser();
-            List<UserReviewWords> storedReviewedWords = userReviewWordsRepository.findByIdUserAndIdWordReferenceIn(
-                    idUser,
-                    results.stream().map(ActivityResult::getIdWordRef).toList());
+            Long idUserLanguages = userActivity.getUserLanguages().getIdUserLanguages();
+            List<UserReviewWords> storedReviewedWords = userReviewWordsRepository
+                    .findByIdUserLanguagesAndIdWordReferenceIn(
+                            idUserLanguages,
+                            results.stream().map(ActivityResult::getIdWordRef).toList());
 
             List<UserReviewWords> toSave = new ArrayList<>();
 
@@ -64,7 +72,6 @@ public class UserReviewWordsService {
                 }
 
                 UserReviewWords reviewWords = new UserReviewWords(
-                        idUser,
                         activityResult.getIdWordRef(),
                         userActivity.getUserLanguages().getIdUserLanguages(),
                         difficulty,
@@ -77,9 +84,9 @@ public class UserReviewWordsService {
         }
     }
 
-    public List<UserReviewWords> findTop5ByUser(Long idUser) {
-        this.usersService.getUserByID(idUser); // THROWS EXCEPTION IF USER IS NOT FOUND
-        return this.userReviewWordsRepository.findByIdUserOrderByDifficultyAscDateDesc(idUser);
+    public List<UserReviewWords> findTop5ByUser(Long idUserLanguages) {
+        this.userLanguagesService.getUserLanguagesById(idUserLanguages);
+        return this.userReviewWordsRepository.findByIdUserLanguagesOrderByDifficultyAscDateDesc(idUserLanguages);
     }
 
 }

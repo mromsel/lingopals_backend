@@ -18,7 +18,5 @@ public class LessonDto {
     private String lessonName;
     private LanguageLevelDto languageLevel;
     private ActivityTypeDto activityType;
-    private List<WordDto> listWordsOrigin;
-    private List<WordDto> listWordDestiny;
-
+    private Boolean isCompleted;
 }

@@ -83,6 +83,8 @@ public class ExceptionMessages {
 
     // #endregion
 
+    // #region Masters Messages
+
     public static final String XP_LEVEL_NOT_FOUND = "The xp level with that ID does not exist in the database";
     public static final String XP_LEVEL_UPDATE_ERROR = "Error updating xp level";
     public static final String XP_LEVEL_UPDATE_NOT_FOUND = "Error updating xp level because it does not exist in the database";
@@ -93,9 +95,17 @@ public class ExceptionMessages {
     public static final String ACTIVITY_TYPE_UPDATE_NOT_FOUND = "Error updating activity type because it does not exist in the database";
     public static final String ACTIVITY_TYPE_DELETE_ERROR = "Error deleting activity type";
 
+    public static final String PROFILE_NOT_FOUND = "The profile does not exist in the database";
+
+    // #endregion
+
     // #region Auth Messages
 
     public static final String LOGIN_FAILED = "Username/email or password are incorrect";
+
+    public static final String SIGNUP_FAILED = "Error creating user";
+    public static final String USER_USERNAME_CONFLICT = "username conflict";
+    public static final String USER_EMAIL_CONFLICT = "email conflict";
 
     // #endregion
 

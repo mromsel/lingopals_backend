@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.romsel.lingopals_backend.users_related.users.infrastructure.UserService;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivity;
 import com.romsel.lingopals_backend.users_related.users_activity.domain.UserActivityRepository;
+import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
 
 @Service
 public class UserActivityService {
@@ -16,14 +16,14 @@ public class UserActivityService {
     private UserActivityRepository userActivityRepository;
 
     @Autowired
-    private UserService userService;
+    private UserLanguagesService userLanguagesService;
 
     public List<UserActivity> getAllUsersActivities() {
         return (List<UserActivity>) userActivityRepository.findAll();
     }
 
-    public List<UserActivity> getUserActivityByUserID(Long idUser) {
-        return userActivityRepository.findByUser(userService.getUserByID(idUser));
+    public List<UserActivity> getUserActivityByUserLanguages(Long idUserLanguages) {
+        return userActivityRepository.findByUserLanguages(userLanguagesService.getUserLanguagesById(idUserLanguages));
     }
 
     public UserActivity save(UserActivity userActivity) {
