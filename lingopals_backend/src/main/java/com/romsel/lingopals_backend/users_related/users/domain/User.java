@@ -78,7 +78,7 @@ public class User implements UserDetails {
     @Column(name = "time_zone", nullable = false)
     private String timeZone;
 
-    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_user_progress_data", nullable = true)
     private UserProgressData userProgressData;
 
@@ -86,7 +86,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "id_profile")
     private Profile profile;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<UserLanguages> userLanguages;
 
     @OneToMany(mappedBy = "user1")
