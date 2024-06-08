@@ -49,14 +49,13 @@ services:
     command: mvn spring-boot:run
     networks:
       - lingopals-network
-
-  libretranslate:
-    container_name: libretranslate
-    image: libretranslate/libretranslate
-    ports:
-      - "5000:5000"
-    networks:
-      - lingopals-network
+  # libretranslate:
+  #   container_name: libretranslate
+  #   image: libretranslate/libretranslate
+  #   ports:
+  #     - "5000:5000"
+  #   networks:
+  #     - lingopals-network
 
 volumes:
   dbdata:

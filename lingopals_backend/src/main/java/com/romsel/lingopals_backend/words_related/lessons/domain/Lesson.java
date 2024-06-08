@@ -5,6 +5,7 @@ import java.util.List;
 import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
 import com.romsel.lingopals_backend.masters.language_levels.domain.LanguageLevel;
 import com.romsel.lingopals_backend.users_related.users_completed_lessons.domain.UserCompletedLessons;
+import com.romsel.lingopals_backend.words_related.semantic_categories.domain.SemanticCategory;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
 
 import jakarta.persistence.Column;
@@ -42,6 +43,10 @@ public class Lesson {
     @JoinTable(name = "lessons_wordsref", joinColumns = @JoinColumn(name = "id_lesson"), inverseJoinColumns = @JoinColumn(name = "id_ref"))
     @ManyToMany
     private List<WordReference> listWordsReferences;
+
+    @JoinColumn(name = "semantic_category")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private SemanticCategory semanticCategory;
 
     @Transient
     private ActivityType activityType;
