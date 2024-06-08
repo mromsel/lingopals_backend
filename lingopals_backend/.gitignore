@@ -34,3 +34,4 @@ build/
 
 ### Secret info ###
 application-local.properties
+*.env
