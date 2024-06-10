@@ -2,6 +2,7 @@ package com.romsel.lingopals_backend.users_related.users.infrastructure;
 
 import com.romsel.lingopals_backend.images.infrastructure.ImageDto;
 import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageDto;
+import com.romsel.lingopals_backend.masters.profiles.infrastructure.ProfileDto;
 
 import lombok.Data;
 
@@ -17,5 +18,6 @@ public class UserBasicDto {
     private ImageDto profileImage;
     private LanguageDto preferredLanguage;
     private String timeZone;
+    private ProfileDto profile;
 
 }
