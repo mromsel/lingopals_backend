@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
 import com.romsel.lingopals_backend.masters.language_levels.infrastructure.LanguageLevelDto;
+import com.romsel.lingopals_backend.words_related.semantic_categories.infrastructure.SemanticCategoryFullDto;
 
 import lombok.Data;
 
@@ -15,5 +16,6 @@ public class LessonFullDto {
     private LanguageLevelDto languageLevel;
     private ActivityTypeDto activityType;
     private List<WordsInLessonDto> wordsList;
+    private SemanticCategoryFullDto semanticCategory;
 
 }
