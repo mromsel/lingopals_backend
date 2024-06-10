@@ -16,8 +16,13 @@ import com.romsel.lingopals_backend.users_related.users_languages.domain.UserLan
 import com.romsel.lingopals_backend.users_related.users_languages.infrastructure.UserLanguagesService;
 import com.romsel.lingopals_backend.words_related.lessons.domain.Lesson;
 import com.romsel.lingopals_backend.words_related.lessons.domain.LessonRepository;
+import com.romsel.lingopals_backend.words_related.semantic_categories.application.SemanticCategoryGetter;
+import com.romsel.lingopals_backend.words_related.semantic_categories.domain.SemanticCategory;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class LessonDisplayGetter {
 
     private LessonRepository lessonRepository;
@@ -28,14 +33,7 @@ public class LessonDisplayGetter {
 
     private ActivityTypeService activityTypeService;
 
-    public LessonDisplayGetter(LessonRepository lessonRepository, UserLanguagesService userLanguagesService,
-            UserCompletedLessonsService userCompletedLessonsService,
-            ActivityTypeService activityTypeService) {
-        this.lessonRepository = lessonRepository;
-        this.userLanguagesService = userLanguagesService;
-        this.userCompletedLessonsService = userCompletedLessonsService;
-        this.activityTypeService = activityTypeService;
-    }
+    private SemanticCategoryGetter semanticCategoryGetter;
 
     public List<LessonDisplay> getLessonsByUserLanguagesWithProgress(Long idUserLanguages) {
         ActivityType activityType = activityTypeService.findByType(Constants.ACTIVITY_TYPE_LESSON);
@@ -61,8 +59,12 @@ public class LessonDisplayGetter {
                     lesson.setUserCompletedLesson(userCompletedLesson);
                 }
             }
+            SemanticCategory semanticCategory = semanticCategoryGetter
+                    .getFullCategory(lesson.getSemanticCategory().getIdSemanticCategory(), userLanguages);
+
             LessonDisplay lessonDisplay = new LessonDisplay(lesson.getIdLesson(), lesson.getLessonName(),
-                    lesson.getLanguageLevel(), activityType, lesson.getIsCompleted(), lesson.getUserCompletedLesson());
+                    lesson.getLanguageLevel(), activityType, lesson.getIsCompleted(), lesson.getUserCompletedLesson(),
+                    semanticCategory);
             result.add(lessonDisplay);
         });
         return result;
