@@ -31,7 +31,7 @@ public class WordReferenceController {
     public List<WordReferenceFullDto> getAllWordReferences() {
         return wordReferenceService.getAllWordReferences()
                 .stream()
-                .map(wordReference -> modelMapper.map(wordReference, WordReferenceFullDto.class))
+                .map(WordReferenceFullDto::mapToDto)
                 .toList();
     }
 
