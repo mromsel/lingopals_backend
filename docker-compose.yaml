@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:latest
+    container_name: lingopals_db
+
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - lingopals-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: lingopals_db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8081:80"
+    depends_on:
+      - database
+    networks:
+      - lingopals-network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: romsel/lingopals:latest
+    container_name: lingopals_backend
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://lingopals_db:3306/${MYSQL_DATABASE}
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+      - /app/target
+    command: mvn spring-boot:run
+    networks:
+      - lingopals-network
+  # libretranslate:
+  #   container_name: libretranslate
+  #   image: libretranslate/libretranslate
+  #   ports:
+  #     - "5000:5000"
+  #   networks:
+  #     - lingopals-network
+
+volumes:
+  dbdata:
+
+
+networks:
+  lingopals-network:
