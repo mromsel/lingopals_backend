@@ -1,9 +1,11 @@
 package com.romsel.lingopals_backend.masters.languages.domain;
 
+import com.romsel.lingopals_backend.images.domain.Image;
 import com.romsel.lingopals_backend.masters.writing_systems.domain.WritingSystem;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -30,8 +32,9 @@ public class Language {
     @Column(name = "iso_code")
     private String isoCode;
 
-    @Column(name = "flag")
-    private String flag;
+    @JoinColumn(name = "flag")
+    @ManyToOne(targetEntity = Image.class, optional = true, fetch = FetchType.LAZY)
+    private Image flag;
 
     @JoinColumn(name = "id_writing_system", insertable = false, updatable = false)
     @ManyToOne(optional = false)

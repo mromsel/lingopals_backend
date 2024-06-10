@@ -11,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.romsel.lingopals_backend.images.domain.Image;
 import com.romsel.lingopals_backend.masters.languages.domain.Language;
 import com.romsel.lingopals_backend.masters.profiles.domain.Profile;
 import com.romsel.lingopals_backend.users_related.users_languages.domain.UserLanguages;
@@ -68,8 +69,12 @@ public class User implements UserDetails {
     @Column(name = "registration_date")
     private ZonedDateTime registrationDate;
 
-    @Column(name = "profile_image_url")
-    private String profileImageUrl;
+    // @Column(name = "profile_image_url")
+    // private String profileImageUrl;
+
+    @JoinColumn(name = "id_profile_image")
+    @ManyToOne(targetEntity = Image.class, optional = true, fetch = FetchType.LAZY)
+    private Image profileImage;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_language")
