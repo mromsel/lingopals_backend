@@ -11,6 +11,7 @@ import com.romsel.lingopals_backend.masters.languages.infrastructure.LanguageSer
 import com.romsel.lingopals_backend.masters.profiles.infrastructure.ProfileService;
 import com.romsel.lingopals_backend.masters.writing_systems.infrastructure.WritingSystemService;
 import com.romsel.lingopals_backend.masters.xp_levels.infrastructure.XPLevelService;
+import com.romsel.lingopals_backend.words_related.semantic_categories.infrastructure.SemanticCategoryService;
 
 @Service
 public class MastersService {
@@ -31,6 +32,9 @@ public class MastersService {
     private ProfileService profileService;
 
     @Autowired
+    private SemanticCategoryService semanticCategoryService;
+
+    @Autowired
     private WritingSystemService writingSystemService;
 
     @Autowired
@@ -44,6 +48,7 @@ public class MastersService {
         masters.setLanguageLevels(languageLevelService.getAllLanguageLevels());
         masters.setLanguages(languageService.getAllLanguages());
         masters.setProfiles(profileService.findAll());
+        masters.setSemanticCategories(semanticCategoryService.findAll());
         masters.setWritingSystems(writingSystemService.getAllWritingSystems());
         masters.setXpLevels(xpLevelService.findAll());
 

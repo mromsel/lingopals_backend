@@ -2,7 +2,7 @@ package com.romsel.lingopals_backend.words_related.word_references.infrastructur
 
 import com.romsel.lingopals_backend.masters.grammatical_categories.infrastructure.GrammaticalCategoryDto;
 import com.romsel.lingopals_backend.masters.language_levels.infrastructure.LanguageLevelDto;
-import com.romsel.lingopals_backend.words_related.categories.infrastructure.CategoryDto;
+import com.romsel.lingopals_backend.words_related.semantic_categories.infrastructure.SemanticCategoryDto;
 
 import lombok.Data;
 
@@ -15,7 +15,7 @@ public class WordReferenceDto {
     private Long idWordRef;
     private GrammaticalCategoryDto grammaticalCategory;
     private LanguageLevelDto languageLevel;
-    // private CategoryDto category;
+    private SemanticCategoryDto semanticCategory;
     private String imageUrl;
 
 }
