@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
 import com.romsel.lingopals_backend.masters.language_levels.domain.LanguageLevel;
 import com.romsel.lingopals_backend.masters.language_levels.infrastructure.LanguageLevelDto;

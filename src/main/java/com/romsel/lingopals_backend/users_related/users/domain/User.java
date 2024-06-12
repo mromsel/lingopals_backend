@@ -69,9 +69,6 @@ public class User implements UserDetails {
     @Column(name = "registration_date")
     private ZonedDateTime registrationDate;
 
-    // @Column(name = "profile_image_url")
-    // private String profileImageUrl;
-
     @JoinColumn(name = "id_profile_image")
     @ManyToOne(targetEntity = Image.class, optional = true, fetch = FetchType.LAZY)
     private Image profileImage;

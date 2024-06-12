@@ -1,10 +1,7 @@
 package com.romsel.lingopals_backend.words_related.lessons.infrastructure;
 
-import java.util.List;
-
 import com.romsel.lingopals_backend.masters.activity_types.infrastructure.ActivityTypeDto;
 import com.romsel.lingopals_backend.masters.language_levels.infrastructure.LanguageLevelDto;
-import com.romsel.lingopals_backend.words_related.words.infrastructure.WordDto;
 
 import lombok.Data;
 

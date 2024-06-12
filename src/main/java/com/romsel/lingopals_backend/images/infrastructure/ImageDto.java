@@ -1,7 +1,6 @@
 package com.romsel.lingopals_backend.images.infrastructure;
 
 import com.romsel.lingopals_backend.images.domain.Image;
-import com.romsel.lingopals_backend.images.domain.ImageTypeEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

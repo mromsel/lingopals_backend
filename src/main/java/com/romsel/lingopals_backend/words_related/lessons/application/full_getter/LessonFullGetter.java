@@ -18,7 +18,6 @@ import com.romsel.lingopals_backend.words_related.lessons.domain.LessonException
 import com.romsel.lingopals_backend.words_related.lessons.infrastructure.LessonService;
 import com.romsel.lingopals_backend.words_related.lessons.infrastructure.WordsInLessonDto;
 import com.romsel.lingopals_backend.words_related.semantic_categories.application.SemanticCategoryGetter;
-import com.romsel.lingopals_backend.words_related.semantic_categories.infrastructure.SemanticCategoryFullDto;
 import com.romsel.lingopals_backend.words_related.word_references.domain.WordReference;
 import com.romsel.lingopals_backend.words_related.words.application.WordService;
 import com.romsel.lingopals_backend.words_related.words.application.WordServiceFactory;
@@ -97,20 +96,6 @@ public class LessonFullGetter {
                                     .equals(idWordReference))
                             .findFirst()
                             .orElse(null);
-
-                    // WordsInLessonDto newWordsInLessonDto = new WordsInLessonDto();
-                    // newWordsInLessonDto.setWordOrigin(
-                    // wordsOrigin.stream()
-                    // .filter(word -> word.getIdWordRef()
-                    // .equals(idWordReference))
-                    // .findFirst()
-                    // .orElse(null));
-                    // newWordsInLessonDto.setWordTarget(
-                    // wordsDestiny.stream()
-                    // .filter(word -> word.getIdWordRef()
-                    // .equals(idWordReference))
-                    // .findFirst()
-                    // .orElse(null));
 
                     return WordsInLessonDto.convertToDto(wordOriginDto, wordTargetDto);
                 })
