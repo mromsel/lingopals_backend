@@ -6,10 +6,12 @@ import com.romsel.lingopals_backend.users_related.users_completed_lessons.domain
 import com.romsel.lingopals_backend.words_related.semantic_categories.domain.SemanticCategory;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class LessonDisplay {
     private Integer idLesson;
     private String lessonName;

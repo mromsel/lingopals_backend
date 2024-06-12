@@ -62,9 +62,16 @@ public class LessonDisplayGetter {
             SemanticCategory semanticCategory = semanticCategoryGetter
                     .getFullCategory(lesson.getSemanticCategory().getIdSemanticCategory(), userLanguages);
 
-            LessonDisplay lessonDisplay = new LessonDisplay(lesson.getIdLesson(), lesson.getLessonName(),
-                    lesson.getLanguageLevel(), activityType, lesson.getIsCompleted(), lesson.getUserCompletedLesson(),
-                    semanticCategory);
+            LessonDisplay lessonDisplay = LessonDisplay.builder()
+                    .idLesson(lesson.getIdLesson())
+                    .lessonName(lesson.getLessonName())
+                    .languageLevel(lesson.getLanguageLevel())
+                    .activityType(activityType)
+                    .isCompleted(lesson.getIsCompleted())
+                    .userCompletedLesson(lesson.getUserCompletedLesson())
+                    .semanticCategory(semanticCategory)
+                    .build();
+
             result.add(lessonDisplay);
         });
         return result;

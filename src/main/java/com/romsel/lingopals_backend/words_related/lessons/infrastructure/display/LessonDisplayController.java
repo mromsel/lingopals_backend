@@ -12,6 +12,7 @@ import com.romsel.lingopals_backend.masters.language_levels.infrastructure.Langu
 import com.romsel.lingopals_backend.users_related.users_completed_lessons.domain.UserCompletedLessons;
 import com.romsel.lingopals_backend.users_related.users_completed_lessons.infrastructure.UserCompletedLessonsDto;
 import com.romsel.lingopals_backend.words_related.lessons.application.display.LessonDisplayGetter;
+import com.romsel.lingopals_backend.words_related.semantic_categories.infrastructure.SemanticCategoryFullDto;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -65,6 +66,11 @@ public class LessonDisplayController {
                         userCompletedLessonsDto.setCompletionDate(userCompletedLesson.getCompletionDate());
                         userCompletedLessonsDto.setProgressPercent(userCompletedLesson.getProgressPercent());
                         lessonDisplayDto.setUserCompletedLesson(userCompletedLessonsDto);
+                    }
+
+                    if (lessonDisplay.getSemanticCategory() != null) {
+                        lessonDisplayDto.setSemanticCategory(
+                                SemanticCategoryFullDto.convertToDto(lessonDisplay.getSemanticCategory()));
                     }
 
                     return lessonDisplayDto;
