@@ -46,12 +46,8 @@ public class LessonDisplayController {
                     lessonDisplayDto.setLanguageLevel(languageLevelDto);
 
                     // Mapping from ActivityType to ActivityTypeDto
-                    ActivityTypeDto activityTypeDto = new ActivityTypeDto();
-                    ActivityType activityType = lessonDisplay.getActivityType();
-                    if (activityType != null) {
-                        activityTypeDto.setIdActivityType(activityType.getIdActivityType());
-                        activityTypeDto.setType(activityType.getType());
-                    }
+                    ActivityTypeDto activityTypeDto = ActivityTypeDto.convertToDto(lessonDisplay.getActivityType());
+
                     lessonDisplayDto.setActivityType(activityTypeDto);
 
                     lessonDisplayDto.setIsCompleted(lessonDisplay.getIsCompleted());
