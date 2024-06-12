@@ -25,15 +25,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LessonDisplayGetter {
 
-    private LessonRepository lessonRepository;
+    private final LessonRepository lessonRepository;
 
-    private UserLanguagesService userLanguagesService;
+    private final UserLanguagesService userLanguagesService;
 
-    private UserCompletedLessonsService userCompletedLessonsService;
+    private final UserCompletedLessonsService userCompletedLessonsService;
 
-    private ActivityTypeService activityTypeService;
+    private final ActivityTypeService activityTypeService;
 
-    private SemanticCategoryGetter semanticCategoryGetter;
+    private final SemanticCategoryGetter semanticCategoryGetter;
 
     public List<LessonDisplay> getLessonsByUserLanguagesWithProgress(Long idUserLanguages) {
         ActivityType activityType = activityTypeService.findByType(Constants.ACTIVITY_TYPE_LESSON);
