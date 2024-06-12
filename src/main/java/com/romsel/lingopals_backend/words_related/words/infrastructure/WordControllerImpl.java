@@ -28,7 +28,7 @@ public abstract class WordControllerImpl<E extends Word, S extends WordServiceIm
     public ResponseEntity<?> getAll() {
         List<WordDto> list = service.findAll()
                 .stream()
-                .map(word -> modelMapper.map(word, WordDto.class))
+                .map(WordDto::convertToDto)
                 .toList();
 
         return new ResponseEntity<>(list, HttpStatus.OK);
