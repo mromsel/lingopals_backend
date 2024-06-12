@@ -2,14 +2,18 @@ package com.romsel.lingopals_backend.masters.activity_types.infrastructure;
 
 import com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @see com.romsel.lingopals_backend.masters.activity_types.domain.ActivityType
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ActivityTypeDto {
 
     private Integer idActivityType;
